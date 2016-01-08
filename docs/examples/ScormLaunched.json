@@ -33,9 +33,9 @@
     "https:\/\/github.com\/LearningLocker\/Moodle-xAPI-Translator":"0.3.0"
   },
   "time":"2015-08-11T14:50:19+01:00",
-  "app_url":"http:\/\/localhost\/moodle\/course.php?id=1",
-  "app_name":"Test Site",
-  "app_description":"A Moodle course",
+  "app_url": "http:\/\/localhost\/moodle",
+  "app_name": "My Test Site",
+  "app_description": "A test site.",
   "app_type":"http:\/\/id.tincanapi.com\/activitytype\/site",
   "app_ext":{
     "id":"1",

@@ -28,7 +28,7 @@ abstract class EventTest extends PhpUnitTestCase {
             'user' => $this->constructUser(),
             'relateduser' => $this->constructUser(),
             'course' => $this->constructCourse(),
-            'app' => $this->constructCourse(),
+            'app' => $this->constructApp(),
             'event' => $this->constructEvent('\core\event\course_viewed'),
             'info' => $this->constructInfo(),
         ];
@@ -63,6 +63,16 @@ abstract class EventTest extends PhpUnitTestCase {
             'summary' => 'Test course_summary',
             'lang' => 'en',
             'type' => 'moodle_course',
+        ];
+    }
+
+    protected function constructApp() {
+        return (object) [
+            'url' => 'http://www.example.com',
+            'fullname' => 'Test site_fullname',
+            'summary' => 'Test site_summary',
+            'lang' => 'en',
+            'type' => 'moodle_site',
         ];
     }
 

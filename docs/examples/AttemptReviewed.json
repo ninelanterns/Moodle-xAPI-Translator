@@ -147,9 +147,9 @@
     "attempt_result": 1,
     "attempt_completed": true,
     "attempt_duration": "P00Y00M00DT00H00M36S",
-    "app_url": "http:\/\/localhost\/moodle\/course.php?id=1",
+    "app_url": "http:\/\/localhost\/moodle",
     "app_name": "My Test Site",
-    "app_description": "<p>A test site.<\/p>",
+    "app_description": "A test site.",
     "app_type":"http:\/\/id.tincanapi.com\/activitytype\/site",
     "app_ext": {
         "id": "1",
