@@ -34,9 +34,9 @@
     "context_ext_key": "http:\/\/lrs.learninglocker.net\/define\/extensions\/moodle_logstore_standard_log",
     "time": "2015-06-18T11:57:53+01:00",
     "recipe": "user_registered",
-    "app_url": "http:\/\/localhost\/moodle\/course.php?id=1",
+    "app_url": "http:\/\/localhost\/moodle",
     "app_name": "My Test Site",
-    "app_description": "<p>A test site.<\/p>",
+    "app_description": "A test site.",
     "app_type":"http:\/\/id.tincanapi.com\/activitytype\/site",
     "app_ext": {
         "id": "1",

@@ -28,7 +28,7 @@ abstract class EventTest extends PhpUnitTestCase {
             'user' => $this->constructUser(),
             'relateduser' => $this->constructUser(),
             'course' => $this->constructCourse(),
-            'app' => $this->constructCourse(),
+            'app' => $this->constructApp(),
             'event' => $this->constructEvent('\core\event\course_viewed'),
             'info' => $this->constructInfo(),
         ];
@@ -60,9 +60,19 @@ abstract class EventTest extends PhpUnitTestCase {
         return (object) [
             'url' => 'http://www.example.com/course_url',
             'fullname' => 'Test course_fullname',
-            'summary' => 'Test course_summary',
+            'summary' => '<p>Test course_summary</p>',
             'lang' => 'en',
             'type' => 'moodle_course',
+        ];
+    }
+
+    protected function constructApp() {
+        return (object) [
+            'url' => 'http://www.example.com',
+            'fullname' => 'Test site_fullname',
+            'summary' => '<p>Test site_summary</p>',
+            'lang' => 'en',
+            'type' => 'moodle_site',
         ];
     }
 
@@ -84,7 +94,7 @@ abstract class EventTest extends PhpUnitTestCase {
         $this->assertEquals($input->lang, $output['context_lang']);
         $this->assertEquals($input->url, $output[$type.'_url']);
         $this->assertEquals($input->fullname, $output[$type.'_name']);
-        $this->assertEquals($input->summary, $output[$type.'_description']);
+        $this->assertEquals(strip_tags($input->summary), $output[$type.'_description']);
         $this->assertEquals(static::$xapi_type.$input->type, $output[$type.'_type']);
         $this->assertEquals($input, $output[$type.'_ext']);
         $this->assertEquals($ext_key, $output[$type.'_ext_key']);
@@ -96,7 +106,7 @@ abstract class EventTest extends PhpUnitTestCase {
         $this->assertEquals($input->lang, $output['context_lang']);
         $this->assertEquals($input->url, $output[$type.'_url']);
         $this->assertEquals($input->fullname, $output[$type.'_name']);
-        $this->assertEquals($input->summary, $output[$type.'_description']);
+        $this->assertEquals(strip_tags($input->summary), $output[$type.'_description']);
         $this->assertEquals($app_type, $output[$type.'_type']);
         $this->assertEquals($input, $output[$type.'_ext']);
         $this->assertEquals($ext_key, $output[$type.'_ext_key']);

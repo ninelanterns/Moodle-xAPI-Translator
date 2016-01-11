@@ -13,6 +13,7 @@ class Event extends PhpObj {
     public function read(array $opts) {
         $version = str_replace(PHP_EOL, '', file_get_contents(__DIR__.'/../../VERSION'));
         $opts['info']->{'https://github.com/LearningLocker/Moodle-xAPI-Translator'} = $version;
+        $app_name = $opts['app']->fullname ?: 'A Moodle site';
         return [
             'user_id' => $opts['user']->id,
             'user_url' => $opts['user']->url,
@@ -24,8 +25,8 @@ class Event extends PhpObj {
             'context_info' => $opts['info'],
             'time' => date('c', $opts['event']['timecreated']),
             'app_url' => $opts['app']->url,
-            'app_name' => $opts['app']->fullname ?: 'A Moodle course',
-            'app_description' => $opts['app']->summary ?: $opts['app']->fullname,
+            'app_name' => $app_name,
+            'app_description' => strip_tags($opts['app']->summary) ?: $app_name,
             'app_type' => 'http://id.tincanapi.com/activitytype/site',
             'app_ext' => $opts['app'],
             'app_ext_key' => 'http://lrs.learninglocker.net/define/extensions/moodle_course',
