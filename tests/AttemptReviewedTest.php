@@ -14,7 +14,6 @@ class AttemptReviewedTest extends AttemptStartedTest {
 
     protected function constructInput() {
         return array_merge(parent::constructInput(), [
-            'attempt' => AttemptStartedTest::constructAttempt(),
             'gradeitems' => $this->constructGradeitems()
         ]);
     }
