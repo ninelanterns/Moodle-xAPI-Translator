@@ -12,9 +12,27 @@ class AttemptReviewedTest extends AttemptStartedTest {
         $this->event = new Event($this->repo);
     }
 
+    protected function constructInput() {
+        return array_merge(parent::constructInput(), [
+            'attempt' => $this->constructAttempt(),
+            'gradeitems' => $this->constructGradeitems()
+        ]);
+    }
+
+    private function constructGradeitems() {
+        return (object) [
+            'grademin' => 0,
+            'grademax' => 5,
+            'gradepass' => 5
+        ];
+    }
+
     protected function assertAttempt($input, $output) {
         parent::assertAttempt($input, $output);
-        $this->assertEquals((float) $input->sumgrades, $output['attempt_result']);
+        $this->assertEquals((float) $input->sumgrades, $output['attempt_score_raw']);
+        $this->assertEquals((float) $input->grademin, $output['attempt_score_min']);
+        $this->assertEquals((float) $input->grademax, $output['attempt_score_max']);
+        $this->assertEquals($input->sumgrades >= $input->gradepass, $output['attempt_success']);
         $this->assertEquals($input->state === 'finished', $output['attempt_completed']);
     }
 }
