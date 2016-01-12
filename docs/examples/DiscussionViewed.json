@@ -116,6 +116,10 @@
         "type": "mod_discussion"
     },
     "discussion_ext_key": "http:\/\/lrs.learninglocker.net\/define\/extensions\/moodle_discussion",
+    "source_url": "http:\/\/moodle.org",
+    "source_name": "Moodle",
+    "source_description": "Moodle is a open source learning platform designed to provide educators, administrators and learners with a single robust, secure and integrated system to create personalised learning environments.",
+    "source_type":"http:\/\/id.tincanapi.com\/activitytype\/source",
     "app_url": "http:\/\/localhost\/moodle",
     "app_name": "My Test Site",
     "app_description": "A test site.",
