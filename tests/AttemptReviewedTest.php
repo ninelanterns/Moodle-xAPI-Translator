@@ -26,12 +26,21 @@ class AttemptReviewedTest extends AttemptStartedTest {
         ];
     }
 
+    protected function assertOutput($input, $output) {
+        parent::assertOutput($input, $output);
+        $this->assertAttempt($input['attempt'], $output);
+        $this->assertGradeItems($input, $output);
+    }
+
     protected function assertAttempt($input, $output) {
         parent::assertAttempt($input, $output);
-        $this->assertEquals((float) $input['attempt']->sumgrades, $output['attempt_score_raw']);
+        $this->assertEquals((float) $input->sumgrades, $output['attempt_score_raw']);
+        $this->assertEquals($input->state === 'finished', $output['attempt_success']);
+    }
+
+    protected function assertGradeItems($input, $output) {
         $this->assertEquals((float) $input['gradeitems']->grademin, $output['attempt_score_min']);
         $this->assertEquals((float) $input['gradeitems']->grademax, $output['attempt_score_max']);
         $this->assertEquals(($input['attempt']->sumgrades >= $input['gradeitems']->gradepass), $output['attempt_success']);
-        $this->assertEquals($input['attempt']->state === 'finished', $output['attempt_success']);
     }
 }
