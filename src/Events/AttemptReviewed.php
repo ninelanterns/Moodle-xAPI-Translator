@@ -8,12 +8,36 @@ class AttemptReviewed extends AttemptStarted {
      * @override AttemtStarted
      */
     public function read(array $opts) {
-        $end = (new \DateTime)->setTimestamp($opts['attempt']->timestart);
-        $start = (new \DateTime)->setTimestamp($opts['attempt']->timefinish);
-        $duration = date_diff($start, $end)->format('P%YY%MM%DDT%HH%IM%SS');
+        $seconds = $opts['attempt']->timefinish - $opts['attempt']->timestart;
+        $duration = "PT".(string) $seconds."S";
+        $scoreRaw = (float) ($opts['attempt']->sumgrades ?: 0);
+        $scoreMin = (float) ($opts['gradeitems']->grademin ?: 0);
+        $scoreMax = (float) ($opts['gradeitems']->grademax ?: 0);
+        $scorePass = (float) ($opts['gradeitems']->gradepass ?: null);
+        $success = false;
+        //if there is no passing score then success is unknown.
+        if ($scorePass == null) {
+            $success = null;
+        }
+        elseif ($scoreRaw >= $scorePass) {
+            $success = true;
+        }
+        //Calculate scaled score as the distance from zero towards the max (or min for negative scores).
+        $scoreScaled;
+        if ($scoreRaw >= 0) {
+            $scoreScaled = $scoreRaw / $scoreMax;
+        }
+        else
+        {
+            $scoreScaled = $scoreRaw / $scoreMin;
+        }
         return array_merge(parent::read($opts), [
             'recipe' => 'attempt_completed',
-            'attempt_result' => (float) ($opts['attempt']->sumgrades ?: 0),
+            'attempt_score_raw' => $scoreRaw,
+            'attempt_score_min' => $scoreMin,
+            'attempt_score_max' => $scoreMax,
+            'attempt_score_scaled' => $scoreScaled,
+            'attempt_success' => $success,
             'attempt_completed' => $opts['attempt']->state === 'finished',
             'attempt_duration' => $duration,
         ]);
