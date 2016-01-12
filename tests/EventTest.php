@@ -29,6 +29,7 @@ abstract class EventTest extends PhpUnitTestCase {
             'relateduser' => $this->constructUser(),
             'course' => $this->constructCourse(),
             'app' => $this->constructApp(),
+            'source' => $this->constructSource(),
             'event' => $this->constructEvent('\core\event\course_viewed'),
             'info' => $this->constructInfo(),
         ];
@@ -76,6 +77,18 @@ abstract class EventTest extends PhpUnitTestCase {
         ];
     }
 
+    protected function constructSource() {
+        return (object) [
+            'url' => 'http://moodle.org',
+            'fullname' => 'Moodle',
+            'summary' => 'Moodle is a open source learning platform designed to provide educators,'
+                .' administrators and learners with a single robust, secure and integrated system'
+                .' to create personalised learning environments.',
+            'lang' => 'en',
+            'type' => 'moodle_source',
+        ];
+    }
+
     protected function assertOutput($input, $output) {
         $this->assertApp($input['app'], $output, 'app');
         $this->assertEvent($input['event'], $output);
@@ -110,6 +123,15 @@ abstract class EventTest extends PhpUnitTestCase {
         $this->assertEquals($app_type, $output[$type.'_type']);
         $this->assertEquals($input, $output[$type.'_ext']);
         $this->assertEquals($ext_key, $output[$type.'_ext_key']);
+    }
+
+    protected function assertSource($input, $output, $type) {
+        $app_type = 'http://id.tincanapi.com/activitytype/source';
+        $this->assertEquals($input->lang, $output['context_lang']);
+        $this->assertEquals($input->url, $output[$type.'_url']);
+        $this->assertEquals($input->fullname, $output[$type.'_name']);
+        $this->assertEquals(strip_tags($input->summary), $output[$type.'_description']);
+        $this->assertEquals($app_type, $output[$type.'_type']);
     }
 
     private function assertEvent($input, $output) {
