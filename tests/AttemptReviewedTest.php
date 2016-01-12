@@ -35,7 +35,7 @@ class AttemptReviewedTest extends AttemptStartedTest {
     protected function assertAttempt($input, $output) {
         parent::assertAttempt($input, $output);
         $this->assertEquals((float) $input->sumgrades, $output['attempt_score_raw']);
-        $this->assertEquals($input->state === 'finished', $output['attempt_success']);
+        $this->assertEquals($input->state === 'finished', $output['attempt_completed']);
     }
 
     protected function assertGradeItems($input, $output) {
