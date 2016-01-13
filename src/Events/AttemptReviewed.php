@@ -11,9 +11,9 @@ class AttemptReviewed extends AttemptStarted {
         $seconds = $opts['attempt']->timefinish - $opts['attempt']->timestart;
         $duration = "PT".(string) $seconds."S";
         $scoreRaw = (float) ($opts['attempt']->sumgrades ?: 0);
-        $scoreMin = (float) ($opts['gradeitems']->grademin ?: 0);
-        $scoreMax = (float) ($opts['gradeitems']->grademax ?: 0);
-        $scorePass = (float) ($opts['gradeitems']->gradepass ?: null);
+        $scoreMin = (float) ($opts['grade_items']->grademin ?: 0);
+        $scoreMax = (float) ($opts['grade_items']->grademax ?: 0);
+        $scorePass = (float) ($opts['grade_items']->gradepass ?: null);
         $success = false;
         //if there is no passing score then success is unknown.
         if ($scorePass == null) {
