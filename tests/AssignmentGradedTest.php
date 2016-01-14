@@ -44,5 +44,12 @@ class AssignmentGradedTest extends ModuleViewedTest {
         $this->assertEquals((float) $input['grade_items']->grademin, $output['grade_score_min']);
         $this->assertEquals((float) $input['grade_items']->grademax, $output['grade_score_max']);
         $this->assertEquals(($input['grade']->grade >= $input['grade_items']->gradepass), $output['grade_success']);
+        if ($output['grade_score_scaled']  >= 0) {
+            $this->assertEquals($output['grade_score_scaled'], $output['grade_score_raw'] / $output['grade_score_max']);
+        }
+        else
+        {
+            $this->assertEquals($output['grade_score_scaled'], $output['grade_score_raw'] / $output['grade_score_min']);
+        }
     }
 }
