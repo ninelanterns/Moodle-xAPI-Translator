@@ -14,7 +14,7 @@ class AttemptReviewedTest extends AttemptStartedTest {
 
     protected function constructInput() {
         return array_merge(parent::constructInput(), [
-            'gradeitems' => $this->constructGradeitems()
+            'grade_items' => $this->constructGradeitems()
         ]);
     }
 
@@ -39,8 +39,15 @@ class AttemptReviewedTest extends AttemptStartedTest {
     }
 
     protected function assertGradeItems($input, $output) {
-        $this->assertEquals((float) $input['gradeitems']->grademin, $output['attempt_score_min']);
-        $this->assertEquals((float) $input['gradeitems']->grademax, $output['attempt_score_max']);
-        $this->assertEquals(($input['attempt']->sumgrades >= $input['gradeitems']->gradepass), $output['attempt_success']);
+        $this->assertEquals((float) $input['grade_items']->grademin, $output['attempt_score_min']);
+        $this->assertEquals((float) $input['grade_items']->grademax, $output['attempt_score_max']);
+        $this->assertEquals(($input['attempt']->sumgrades >= $input['grade_items']->gradepass), $output['attempt_success']);
+        if ($output['attempt_score_scaled']  >= 0) {
+            $this->assertEquals($output['attempt_score_scaled'], $output['attempt_score_raw'] / $output['attempt_score_max']);
+        }
+        else
+        {
+            $this->assertEquals($output['attempt_score_scaled'], $output['attempt_score_raw'] / $output['attempt_score_min']);
+        }
     }
 }
