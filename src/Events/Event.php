@@ -30,6 +30,12 @@ class Event extends PhpObj {
             'app_type' => 'http://id.tincanapi.com/activitytype/site',
             'app_ext' => $opts['app'],
             'app_ext_key' => 'http://lrs.learninglocker.net/define/extensions/moodle_course',
+            'source_url' => 'http://moodle.org',
+            'source_name' => 'Moodle',
+            'source_description' => 'Moodle is a open source learning platform designed to provide educators,'
+                .' administrators and learners with a single robust, secure and integrated system'
+                .' to create personalised learning environments.',
+            'source_type' => 'http://id.tincanapi.com/activitytype/source'
         ];
     }
 }
