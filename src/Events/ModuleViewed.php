@@ -8,7 +8,7 @@ class ModuleViewed extends CourseViewed {
      * @override CourseViewed
      */
     public function read(array $opts) {
-        return [array_merge(parent::read($opts), [
+        return [array_merge(parent::read($opts)[0], [
             'recipe' => 'module_viewed',
             'module_url' => $opts['module']->url,
             'module_name' => $opts['module']->name,

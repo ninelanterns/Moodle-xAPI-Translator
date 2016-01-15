@@ -8,7 +8,7 @@ class DiscussionViewed extends ModuleViewed {
      * @override ModuleViewed
      */
     public function read(array $opts) {
-        return [array_merge(parent::read($opts), [
+        return [array_merge(parent::read($opts)[0], [
             'recipe' => 'discussion_viewed',
             'discussion_url' => $opts['discussion']->url,
             'discussion_name' => $opts['discussion']->name,

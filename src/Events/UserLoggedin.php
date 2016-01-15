@@ -8,7 +8,7 @@ class UserLoggedin extends Event {
      * @override Event
      */
     public function read(array $opts) {
-        return [array_merge(parent::read($opts), [
+        return [array_merge(parent::read($opts)[0], [
             'recipe' => 'user_loggedin',
         ])];
     }

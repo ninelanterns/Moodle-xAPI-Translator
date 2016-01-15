@@ -13,9 +13,9 @@ class AttemptReviewed extends AttemptStarted {
         //push question statements to $translatorevents['events']
         foreach ($opts['attempt']->questions as $questionId => $questionAttempt) {
             array_push(
-                $translatorevents, 
+                $translatorevents,
                 $this->questionStatement(
-                    parent::read($opts),
+                    parent::read($opts)[0],
                     $questionAttempt,
                     $opts['questions'][$questionAttempt->questionid]
                 )
@@ -45,11 +45,10 @@ class AttemptReviewed extends AttemptStarted {
         if ($scoreRaw >= 0) {
             $scoreScaled = $scoreRaw / $scoreMax;
         }
-        else
-        {
+        else {
             $scoreScaled = $scoreRaw / $scoreMin;
         }
-        return array_merge(parent::read($opts), [
+        return array_merge(parent::read($opts)[0], [
             'recipe' => 'attempt_completed',
             'attempt_score_raw' => $scoreRaw,
             'attempt_score_min' => $scoreMin,
@@ -63,9 +62,19 @@ class AttemptReviewed extends AttemptStarted {
 
     protected function questionStatement($template, $questionAttempt, $question) {
 
-        $translatorevent = 
+        $translatorevent = [
             'recipe' => 'attempt_question_completed'
-        ]
+        ];
+
+        //The attempt extension for the attempt includes all question data. 
+        //For questions, only include data relevant to the current question. 
+        $translatorevent['attempt_ext'] = $questionAttempt;
+        $translatorevent['attempt_ext_key'] = 'http://lrs.learninglocker.net/define/extensions/moodle_question_attempt';
+        $translatorevent['question_ext'] = $question;
+        $translatorevent['question_ext_key'] = 'http://lrs.learninglocker.net/define/extensions/moodle_question';
+
+        $translatorevent['question_name'] = $question->name ?: 'A Moodle quiz question';
+        $translatorevent['question_description'] = strip_tags($question->questiontext) ?: 'A Moodle quiz question';
 
         //scaled and raw score default is zero;
         $translatorevent['attempt_score_scaled'] = 0;
@@ -74,9 +83,9 @@ class AttemptReviewed extends AttemptStarted {
         $translatorevent['attempt_score_min'] = 0;
         $translatorevent['attempt_score_max'] = $questionAttempt->maxmark;
 
-        $submittedState = getLastState($questionAttempt);
+        $submittedState = $this->getLastState($questionAttempt);
 
-        if (!is_null($submittedState->timestamp)){
+        if (!is_null($submittedState->timestamp)) {
             $translatorevent['time'] = date('c', $submittedState->timestamp);
         }
 
@@ -117,10 +126,13 @@ class AttemptReviewed extends AttemptStarted {
                 break;
         }
 
-        //default response if it can't be modelled 
+        //default response if it can't be modelled
         $translatorevent['attempt_response'] = $questionAttempt->responsesummary;
 
-        if (!is_null($question->answers) && ($question->answers !== [])){
+        //Due to the infinite nature of Moodle question types, determine xAPI question type based on
+        //the available question data, rather than the type declared in $question->qtype
+        //First, see if it's possible to model the question as a 'choice'. 
+        if (!is_null($question->answers) && ($question->answers !== [])) {
             $choices = [];
             foreach ($question->answers as $answerId => $answer) {
                 $choices[$answerId] = strip_tags($answer->answer);
@@ -133,7 +145,7 @@ class AttemptReviewed extends AttemptStarted {
             //We can't simply explode $questionAttempt->responsesummary using "; " as the delimiter
             //because responses may contain the string "; ". 
             foreach ($choices as $answerId => $choice) {
-                if (!(strpos($questionAttempt->responsesummary, $choice) === false)){
+                if (!(strpos($questionAttempt->responsesummary, $choice) === false)) {
                     array_push($responses, $answerId);
                 }
             }
@@ -141,65 +153,63 @@ class AttemptReviewed extends AttemptStarted {
 
             $correctResponses = [];
             foreach ($choices as $answerId => $choice) {
-                if (!(strpos($questionAttempt->rightanswer, $choice) === false)){
+                if (!(strpos($questionAttempt->rightanswer, $choice) === false)) {
                     array_push($correctResponses, $answerId);
                 }
             }
             $translatorevent['interaction_correct_responses'] = [implode('[,]', $correctResponses)];
 
-            //true-false is basically a special case of multiple choice
-            $trueWords = ['true', 'yes', 'y'];
-            $falseWords = ['false', 'no', 'n'];
+            //true-false is basically a special case of choice
+            $trueWords = ['true', 'yes', 'y', 'right', 'correct', 'agree'];
+            $falseWords = ['false', 'no', 'n', 'wrong', 'incorrect', 'disagree'];
             $lowerCaseChoices = array_map('strtolower', $choices);
             if (
-                count($choices) == 2 
+                count($choices) == 2
                 && (count(array_intersect($trueWords, $lowerCaseChoices)) == 1)
                 && (count(array_intersect($falseWords, $lowerCaseChoices)) == 1)
-            ){
+            ) {
                 $translatorevent['interaction_type'] = "true-false";
                 $translatorevent['interaction_choices'] = null;
 
                 if (in_array(strtolower($questionAttempt->responsesummary), $trueWords)) {
                     $translatorevent['attempt_response'] = "true";
                 }
-                else if (in_array(strtolower($questionAttempt->responsesummary), $falseWords)) {
+                elseif (in_array(strtolower($questionAttempt->responsesummary), $falseWords)) {
                     $translatorevent['attempt_response'] = "false";
                 }
 
                 if (in_array(strtolower($questionAttempt->rightanswer), $trueWords)) {
                     $translatorevent['interaction_correct_responses'] = ["true"];
                 }
-                else if (in_array(strtolower($questionAttempt->rightanswer), $falseWords)) {
+                elseif (in_array(strtolower($questionAttempt->rightanswer), $falseWords)) {
                     $translatorevent['interaction_correct_responses'] = ["false"];
                 }
             }
         }
-
         else {
             //other question type
             $translatorevent['interaction_type'] = "other";
         }
-        //calulcate response by comparing $questionAttempt->responsesummary; to the possible answers to get the id
-        
 
         return array_merge($template, $translatorevent);
     }
 
-    private function getLastState($questionAttempt) {
-        $sequencenumber = -1
+    private function getLastState($questionAttempt){
+        $sequencenumber = -1;
         $state = (object)[
             "state" => "todo",
             "timestamp" => null
         ];
         foreach ($questionAttempt->steps as $stepId => $step) {
-            if ($step->sequencenumber > $sequencenumber){
+            if ($step->sequencenumber > $sequencenumber) {
                 $sequencenumber = $step->sequencenumber;
                 $state = (object)[
                     "state" => $step->state,
-                    "timestamp" => $step->timestamp,
+                    "timestamp" => $step->timecreated,
                     "fraction" => $step->fraction
                 ];
-            } 
+            }
         }
+        return $state;
     }
 }

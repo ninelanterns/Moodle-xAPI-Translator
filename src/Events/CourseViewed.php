@@ -8,7 +8,7 @@ class CourseViewed extends Event {
      * @override Event
      */
     public function read(array $opts) {
-        return [array_merge(parent::read($opts), [
+        return [array_merge(parent::read($opts)[0], [
             'recipe' => 'course_viewed',
             'course_url' => $opts['course']->url,
             'course_name' => $opts['course']->fullname ?: 'A Moodle course',
