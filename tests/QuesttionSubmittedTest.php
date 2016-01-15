@@ -16,7 +16,6 @@ class QuestionSubmittedTest extends AttemptStartedTest {
         $input = array_merge(parent::constructInput(), [
             'questions' => $this->constructQuestions()
         ]);
-
         $input['attempt']->questions = $this->constructQuestionAttempts();
 
         return $input;
@@ -92,16 +91,16 @@ class QuestionSubmittedTest extends AttemptStartedTest {
     }
 
     protected function assertQuestionAttempt($input, $output) {
-        $this->assertEquals((float) $input[0]->maxmark, $output[0]['attempt_score_max']);
-        $this->assertEquals((float) $input[0]->steps[1]->fraction, $output[0]['attempt_score_scaled']);
-        $this->assertEquals((float) $input[0]->maxmark, $output[0]['attempt_score_max']);
-        $this->assertEquals($input[0]->responsesummary, $output[0]['attempt_response']);
-        $this->assertEquals($input[0]->rightanswer, $output[0]['interaction_correct_response']);
+        $this->assertEquals((float) $input[0]->maxmark, $output['attempt_score_max']);
+        $this->assertEquals((float) $input[0]->steps[1]->fraction, $output['attempt_score_scaled']);
+        $this->assertEquals((float) $input[0]->maxmark, $output['attempt_score_max']);
+        $this->assertEquals($input[0]->responsesummary, $output['attempt_response']);
+        $this->assertEquals($input[0]->rightanswer, $output['interaction_correct_response']);
     }
 
     protected function assertQuestion($input, $output) {
-        $this->assertEquals($input[0]->name, $output[0]['question_name']);
-        $this->assertEquals($input[0]->questiontext, $output[0]['question_description']);
-        $this->assertEquals($input[0]->answers[2]->answer, $output[0]['choices'][2]);
+        $this->assertEquals($input[0]->name, $output['question_name']);
+        $this->assertEquals($input[0]->questiontext, $output['question_description']);
+        $this->assertEquals($input[0]->answers[2]->answer, $output['choices'][2]);
     }
 }
