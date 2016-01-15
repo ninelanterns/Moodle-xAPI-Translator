@@ -18,9 +18,9 @@ class AttemptReviewedTest extends AttemptStartedTest {
             'questions' => $this->constructQuestions()
         ]);
 
-        $input['attempt']->questions = $this->constructQuestionAttempts()
+        $input['attempt']->questions = $this->constructQuestionAttempts();
 
-         return $input;
+        return $input;
     }
 
     private function constructGradeitems() {
