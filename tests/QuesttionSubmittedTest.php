@@ -1,7 +1,7 @@
 <?php namespace MXTranslator\Tests;
 use \MXTranslator\Events\QuestionSubmitted as Event;
 
-class QuestionSubmittedTest extends AttemptStartedTest {
+class QuestionSubmittedTest extends ModuleViewedTest {
     protected static $recipe_name = 'attempt_question_completed';
 
     /**
@@ -93,7 +93,7 @@ class QuestionSubmittedTest extends AttemptStartedTest {
     }
 
     protected function assertQuestionAttempt($input, $output) {
-        
+        $this->assertEquals((float) $input->maxmark, $output['attempt_score_max']);
     }
 
     protected function assertQuestion($input, $output) {
