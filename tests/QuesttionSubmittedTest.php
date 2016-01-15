@@ -82,7 +82,7 @@ class QuestionSubmittedTest extends AttemptStartedTest {
     protected function assertOutput($input, $output) {
         parent::assertOutput($input, $output);
         $this->assertAttempt($input['attempt'], $output);
-        $this->assertQuestion($input['question'], $output);
+        $this->assertQuestion($input['questions'], $output);
     }
 
     protected function assertAttempt($input, $output) {
