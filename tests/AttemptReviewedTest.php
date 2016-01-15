@@ -48,13 +48,13 @@ class AttemptReviewedTest extends AttemptStartedTest {
                 (object)[
                     'sequencenumber' => 1,
                     'state' => 'todo',
-                    'timecreated' => '1433946701',
+                    'timecreated' => '1433946000',
                     'fraction' => null
                 ],
                 (object)[
                     'sequencenumber' => 2,
                     'state' => 'gradedright',
-                    'timecreated' => '1452867232',
+                    'timecreated' => '1433946701',
                     'fraction' => '1.0000000'
                 ],
             ],
