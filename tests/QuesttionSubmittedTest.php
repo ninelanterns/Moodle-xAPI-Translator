@@ -17,7 +17,9 @@ class QuestionSubmittedTest extends ModuleViewedTest {
             'questions' => $this->constructQuestions()
         ]);
 
-        $input['attempt']->questions = $this->constructQuestionAttempts();
+        $input['attempt'] = (object)[
+            'questions' =>$this->constructQuestionAttempts()
+        ];
 
         return $input;
     }
@@ -93,6 +95,8 @@ class QuestionSubmittedTest extends ModuleViewedTest {
     }
 
     protected function assertQuestionAttempt($input, $output) {
+        $this->assertEquals((float) $input->maxmark, $output['attempt_score_max']);
+        $this->assertEquals((float) $input->steps[1]->fraction, $output['attempt_score_scaled']);
         $this->assertEquals((float) $input->maxmark, $output['attempt_score_max']);
     }
 
