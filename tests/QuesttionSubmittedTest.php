@@ -88,8 +88,6 @@ class QuestionSubmittedTest extends AttemptStartedTest {
 
     protected function assertAttempt($input, $output) {
         parent::assertAttempt($input, $output);
-        $this->assertEquals((float) $input->sumgrades, $output['attempt_score_raw']);
-        $this->assertEquals($input->state === 'finished', $output['attempt_completed']);
         $this->assertQuestionAttempt($input->questions, $output);
     }
 
@@ -103,5 +101,7 @@ class QuestionSubmittedTest extends AttemptStartedTest {
 
     protected function assertQuestion($input, $output) {
         $this->assertEquals($input[0]->name, $output[0]['question_name']);
+        $this->assertEquals($input[0]->questiontext, $output[0]['question_description']);
+        $this->assertEquals($input[0]->answers[2]->answer, $output[0]['choices'][2]);
     }
 }
