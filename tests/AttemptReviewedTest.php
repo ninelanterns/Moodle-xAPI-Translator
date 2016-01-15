@@ -13,9 +13,14 @@ class AttemptReviewedTest extends AttemptStartedTest {
     }
 
     protected function constructInput() {
-        return array_merge(parent::constructInput(), [
-            'grade_items' => $this->constructGradeitems()
+        $input = array_merge(parent::constructInput(), [
+            'grade_items' => $this->constructGradeitems(),
+            'questions' => $this->constructQuestions()
         ]);
+
+        $input['attempt']->questions = $this->constructQuestionAttempts()
+
+         return $input;
     }
 
     private function constructGradeitems() {
@@ -23,6 +28,33 @@ class AttemptReviewedTest extends AttemptStartedTest {
             'grademin' => 0,
             'grademax' => 5,
             'gradepass' => 5
+        ];
+    }
+
+    private function constructQuestionAttempts() {
+        return (object) [
+            'maxmark' => '5.0000000',
+            'steps' => [
+                (object)[
+                    'sequencenumber' => 1,
+                    'state' => 'todo',
+                    'timecreated' => '1452867228',
+                    'fraction' => null
+                ,
+                (object)[
+                    'sequencenumber' => 2,
+                    'state' => 'gradedright',
+                    'timecreated' => '1452867232',
+                    'fraction' => '1.0000000'
+                ,
+            ]
+        ];
+    }
+
+    private function constructQuestions() {
+        return (object) [
+            'name' => 'test name',
+            'questiontext' => 'test questiontext',
         ];
     }
 

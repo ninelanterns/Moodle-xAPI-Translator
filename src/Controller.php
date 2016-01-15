@@ -53,11 +53,20 @@ class Controller extends PhpObj {
      */
     public function createEvents(array $opts) {
         $route = isset($opts['event']['eventname']) ? $opts['event']['eventname'] : '';
+        public function createEvents(array $opts) {
+        $route = isset($opts['event']['eventname']) ? $opts['event']['eventname'] : '';
         if (isset(static::$routes[$route])) {
-            $event = '\MXTranslator\Events\\'.static::$routes[$route];
-            return (new $event())->read($opts);
+            $results = [];
+            $route_events = is_array(static::$routes[$route]) ? static::$routes[$route] : [static::$routes[$route]];
+            foreach ($route_events as $route_event) {
+                try {
+                   $event = '\MXTranslator\Events\\'.$route_event;
+                   array_push($results, (new $event())->read($opts));
+                } catch (UnnecessaryEvent $ex) {}
+            }
+            return $results;
         } else {
-            return null;
+          return [];
         }
     }
 }
