@@ -1,8 +1,8 @@
 <?php namespace MXTranslator\Tests;
-use \MXTranslator\Events\AttemptReviewed as Event;
+use \MXTranslator\Events\QuestionSubmitted as Event;
 
 class QuestionSubmittedTest extends AttemptStartedTest {
-    protected static $recipe_name = 'attempt_completed';
+    protected static $recipe_name = 'attempt_question_completed';
 
     /**
      * Sets up the tests.
@@ -89,5 +89,14 @@ class QuestionSubmittedTest extends AttemptStartedTest {
         parent::assertAttempt($input, $output);
         $this->assertEquals((float) $input->sumgrades, $output['attempt_score_raw']);
         $this->assertEquals($input->state === 'finished', $output['attempt_completed']);
+        $this->assertQuestionAttempt($input->questions, $output);
+    }
+
+    protected function assertQuestionAttempt($input, $output) {
+        
+    }
+
+    protected function assertQuestion($input, $output) {
+        
     }
 }
