@@ -95,7 +95,7 @@ class QuestionSubmittedTest extends AttemptStartedTest {
         $this->assertEquals((float) $input[0]->steps[1]->fraction, $output['attempt_score_scaled']);
         $this->assertEquals((float) $input[0]->maxmark, $output['attempt_score_max']);
         $this->assertEquals(1, $output['attempt_response']);
-        $this->assertEquals(1, $output['interaction_correct_responses']);
+        $this->assertEquals([1], $output['interaction_correct_responses']);
     }
 
     protected function assertQuestion($input, $output) {
