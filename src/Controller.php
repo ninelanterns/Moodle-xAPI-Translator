@@ -53,8 +53,6 @@ class Controller extends PhpObj {
      */
     public function createEvents(array $opts) {
         $route = isset($opts['event']['eventname']) ? $opts['event']['eventname'] : '';
-        public function createEvents(array $opts) {
-        $route = isset($opts['event']['eventname']) ? $opts['event']['eventname'] : '';
         if (isset(static::$routes[$route])) {
             $results = [];
             $route_events = is_array(static::$routes[$route]) ? static::$routes[$route] : [static::$routes[$route]];
@@ -68,5 +66,6 @@ class Controller extends PhpObj {
         } else {
           return [];
         }
+    }
     }
 }
