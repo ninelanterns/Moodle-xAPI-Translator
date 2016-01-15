@@ -83,6 +83,7 @@ class QuestionSubmittedTest extends AttemptStartedTest {
     protected function assertOutput($input, $output) {
         parent::assertOutput($input, $output);
         $this->assertAttempt($input['attempt'], $output);
+        $this->assertQuestion($input['question'], $output);
     }
 
     protected function assertAttempt($input, $output) {
@@ -93,12 +94,14 @@ class QuestionSubmittedTest extends AttemptStartedTest {
     }
 
     protected function assertQuestionAttempt($input, $output) {
-        $this->assertEquals((float) $input->maxmark, $output['attempt_score_max']);
-        $this->assertEquals((float) $input->steps[1]->fraction, $output['attempt_score_scaled']);
-        $this->assertEquals((float) $input->maxmark, $output['attempt_score_max']);
+        $this->assertEquals((float) $input[0]->maxmark, $output[0]['attempt_score_max']);
+        $this->assertEquals((float) $input[0]->steps[1]->fraction, $output[0]['attempt_score_scaled']);
+        $this->assertEquals((float) $input[0]->maxmark, $output[0]['attempt_score_max']);
+        $this->assertEquals($input[0]->responsesummary, $output[0]['attempt_response']);
+        $this->assertEquals($input[0]->rightanswer, $output[0]['interaction_correct_response']);
     }
 
     protected function assertQuestion($input, $output) {
-        
+        $this->assertEquals($input[0]->name, $output[0]['question_name']);
     }
 }
