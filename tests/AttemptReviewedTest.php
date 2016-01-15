@@ -32,6 +32,14 @@ class AttemptReviewedTest extends AttemptStartedTest {
     }
 
     private function constructQuestionAttempts() {
+        return [
+            $this->constructQuestionAttempt(1),
+            $this->constructQuestionAttempt(2),
+            $this->constructQuestionAttempt(3)
+        ]
+    }
+
+    private function constructQuestionAttempt($index) {
         return (object) [
             'maxmark' => '5.0000000',
             'steps' => [
@@ -47,14 +55,34 @@ class AttemptReviewedTest extends AttemptStartedTest {
                     'timecreated' => '1452867232',
                     'fraction' => '1.0000000'
                 ,
-            ]
+            ],
+            'responsesummary' => 'test answer',
+            'rightanswer' => 'test answer'
         ];
     }
 
     private function constructQuestions() {
+        return [
+            $this->constructQuestion(1),
+            $this->constructQuestion(2),
+            $this->constructQuestion(3)
+        ]
+    }
+
+    private function constructQuestion($index) {
         return (object) [
-            'name' => 'test name',
+            'name' => 'test question {$index}',
             'questiontext' => 'test questiontext',
+            'answers' => [
+                '1'=> (object)[
+                    'id' => '1',
+                    'answer' => 'test answer'
+                ],
+                '2'=> (object)[
+                    'id' => '2',
+                    'answer' => 'wrong test answer'
+                ]
+            ]
         ];
     }
 
