@@ -8,8 +8,8 @@ class UserLoggedout extends UserLoggedin {
      * @override UserLoggedin
      */
     public function read(array $opts) {
-        return array_merge(parent::read($opts), [
+        return [array_merge(parent::read($opts), [
             'recipe' => 'user_loggedout',
-        ]);
+        ])];
     }
 }

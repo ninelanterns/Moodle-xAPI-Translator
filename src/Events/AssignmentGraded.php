@@ -31,7 +31,7 @@ class AssignmentGraded extends ModuleViewed {
             $scoreScaled = $scoreRaw / $scoreMin;
         }
 
-        return array_merge(parent::read($opts), [
+        return [array_merge(parent::read($opts), [
             'recipe' => 'assignment_graded',
             'graded_user_id' => $opts['graded_user']->id,
             'graded_user_url' => $opts['graded_user']->url,
@@ -43,6 +43,6 @@ class AssignmentGraded extends ModuleViewed {
             'grade_success' => $success,
             'grade_completed' => true,
             'grade_comment' => strip_tags($opts['grade_comment']),
-        ]);
+        ])];
     }
 }

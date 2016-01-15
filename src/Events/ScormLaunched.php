@@ -8,8 +8,8 @@ class ScormLaunched extends ModuleViewed {
      * @override ModuleViewed
      */
     public function read(array $opts) {
-        return array_merge(parent::read($opts), [
+        return [array_merge(parent::read($opts), [
             'recipe' => 'scorm_launched',
-        ]);
+        ])];
     }
 }

@@ -8,7 +8,7 @@ class ModuleViewed extends CourseViewed {
      * @override CourseViewed
      */
     public function read(array $opts) {
-        return array_merge(parent::read($opts), [
+        return [array_merge(parent::read($opts), [
             'recipe' => 'module_viewed',
             'module_url' => $opts['module']->url,
             'module_name' => $opts['module']->name,
@@ -16,6 +16,6 @@ class ModuleViewed extends CourseViewed {
             'module_type' => static::$xapi_type.$opts['module']->type,
             'module_ext' => $opts['module'],
             'module_ext_key' => 'http://lrs.learninglocker.net/define/extensions/moodle_module'
-        ]);
+        ])];
     }
 }

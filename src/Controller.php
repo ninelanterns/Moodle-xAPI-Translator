@@ -51,7 +51,7 @@ class Controller extends PhpObj {
      * @param [String => Mixed] $opts
      * @return [String => Mixed]
      */
-    public function createEvent(array $opts) {
+    public function createEvents(array $opts) {
         $route = isset($opts['event']['eventname']) ? $opts['event']['eventname'] : '';
         if (isset(static::$routes[$route])) {
             $event = '\MXTranslator\Events\\'.static::$routes[$route];
