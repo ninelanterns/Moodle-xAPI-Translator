@@ -19,8 +19,10 @@ abstract class EventTest extends PhpUnitTestCase {
      */
     public function testRead() {
         $input = $this->constructInput();
-        $output = $this->event->read($input);
-        $this->assertOutput($input, $output);
+        $outputs = $this->event->read($input);
+        foreach ($outputs as $output) {
+            $this->assertOutput($input, $output);
+        }
     }
 
     protected function constructInput() {
