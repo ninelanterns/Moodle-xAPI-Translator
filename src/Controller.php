@@ -67,5 +67,4 @@ class Controller extends PhpObj {
           return [];
         }
     }
-    }
 }
