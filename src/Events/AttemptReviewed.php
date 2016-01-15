@@ -63,7 +63,7 @@ class AttemptReviewed extends AttemptStarted {
     protected function questionStatement($template, $questionAttempt, $question) {
 
         $translatorevent = [
-            'recipe' => 'attempt_question_completed'
+            'recipe' => 'attempt_completed'
         ];
 
         //The attempt extension for the attempt includes all question data. 
