@@ -41,6 +41,8 @@ class AttemptReviewedTest extends AttemptStartedTest {
 
     private function constructQuestionAttempt($index) {
         return (object) [
+            'id' => 1,
+            'questionid' => 1,
             'maxmark' => '5.0000000',
             'steps' => [
                 (object)[
@@ -71,6 +73,7 @@ class AttemptReviewedTest extends AttemptStartedTest {
 
     private function constructQuestion($index) {
         return (object) [
+            'id' => 1,
             'name' => 'test question {$index}',
             'questiontext' => 'test questiontext',
             'answers' => [
