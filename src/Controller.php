@@ -30,7 +30,7 @@ class Controller extends PhpObj {
         '\mod_facetoface\event\course_module_viewed' => 'ModuleViewed',
         '\mod_quiz\event\attempt_abandoned' => 'AttemptAbandoned',
         '\mod_quiz\event\attempt_preview_started' => 'AttemptStarted',
-        '\mod_quiz\event\attempt_reviewed' => 'AttemptReviewed',
+        '\mod_quiz\event\attempt_reviewed' => ['AttemptReviewed', 'QuestionSubmitted'],
         '\mod_quiz\event\attempt_viewed' => 'ModuleViewed',
         '\core\event\user_loggedin' => 'UserLoggedin',
         '\core\event\user_loggedout' => 'UserLoggedout',
@@ -55,14 +55,16 @@ class Controller extends PhpObj {
         $route = isset($opts['event']['eventname']) ? $opts['event']['eventname'] : '';
         if (isset(static::$routes[$route])) {
             $results = [];
-            $route_events = is_array(static::$routes[$route]) ? static::$routes[$route] : [static::$routes[$route]];
-            foreach ($route_events as $route_event) {
+                $route_events = is_array(static::$routes[$route]) ? static::$routes[$route] : [static::$routes[$route]];
+                foreach ($route_events as $route_event) {
                 try {
-                   $event = '\MXTranslator\Events\\'.$route_event;
-                   array_push($results, (new $event())->read($opts));
+                    $event = '\MXTranslator\Events\\'.$route_event;
+                    foreach ((new $event())->read($opts) as $index => $result) {
+                         array_push($results, $result);
+                     }
                 } catch (UnnecessaryEvent $ex) {}
-            }
-            return $results;
+          }
+          return $results;
         } else {
           return [];
         }
