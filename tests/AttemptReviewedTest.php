@@ -14,8 +14,7 @@ class AttemptReviewedTest extends AttemptStartedTest {
 
     protected function constructInput() {
         $input = array_merge(parent::constructInput(), [
-            'grade_items' => $this->constructGradeitems(),
-            'questions' => $this->constructQuestions()
+            'grade_items' => $this->constructGradeitems()
         ]);
 
         $input['attempt']->questions = $this->constructQuestionAttempts();
@@ -28,64 +27,6 @@ class AttemptReviewedTest extends AttemptStartedTest {
             'grademin' => 0,
             'grademax' => 5,
             'gradepass' => 5
-        ];
-    }
-
-    private function constructQuestionAttempts() {
-        return [
-            $this->constructQuestionAttempt(1),
-            $this->constructQuestionAttempt(2),
-            $this->constructQuestionAttempt(3)
-        ];
-    }
-
-    private function constructQuestionAttempt($index) {
-        return (object) [
-            'id' => 1,
-            'questionid' => 1,
-            'maxmark' => '5.0000000',
-            'steps' => [
-                (object)[
-                    'sequencenumber' => 1,
-                    'state' => 'todo',
-                    'timecreated' => '1433946000',
-                    'fraction' => null
-                ],
-                (object)[
-                    'sequencenumber' => 2,
-                    'state' => 'gradedright',
-                    'timecreated' => '1433946701',
-                    'fraction' => '1.0000000'
-                ],
-            ],
-            'responsesummary' => 'test answer',
-            'rightanswer' => 'test answer'
-        ];
-    }
-
-    private function constructQuestions() {
-        return [
-            $this->constructQuestion(1),
-            $this->constructQuestion(2),
-            $this->constructQuestion(3)
-        ];
-    }
-
-    private function constructQuestion($index) {
-        return (object) [
-            'id' => 1,
-            'name' => 'test question {$index}',
-            'questiontext' => 'test questiontext',
-            'answers' => [
-                '1'=> (object)[
-                    'id' => '1',
-                    'answer' => 'test answer'
-                ],
-                '2'=> (object)[
-                    'id' => '2',
-                    'answer' => 'wrong test answer'
-                ]
-            ]
         ];
     }
 
