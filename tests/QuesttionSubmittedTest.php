@@ -1,7 +1,7 @@
 <?php namespace MXTranslator\Tests;
 use \MXTranslator\Events\QuestionSubmitted as Event;
 
-class QuestionSubmittedTest extends ModuleViewedTest {
+class QuestionSubmittedTest extends AttemptStartedTest {
     protected static $recipe_name = 'attempt_question_completed';
 
     /**
@@ -17,9 +17,7 @@ class QuestionSubmittedTest extends ModuleViewedTest {
             'questions' => $this->constructQuestions()
         ]);
 
-        $input['attempt'] = (object)[
-            'questions' =>$this->constructQuestionAttempts()
-        ];
+        $input['attempt']->questions = $this->constructQuestionAttempts();
 
         return $input;
     }
