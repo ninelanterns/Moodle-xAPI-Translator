@@ -36,7 +36,7 @@ class AttemptReviewedTest extends AttemptStartedTest {
             $this->constructQuestionAttempt(1),
             $this->constructQuestionAttempt(2),
             $this->constructQuestionAttempt(3)
-        ]
+        ];
     }
 
     private function constructQuestionAttempt($index) {
@@ -66,7 +66,7 @@ class AttemptReviewedTest extends AttemptStartedTest {
             $this->constructQuestion(1),
             $this->constructQuestion(2),
             $this->constructQuestion(3)
-        ]
+        ];
     }
 
     private function constructQuestion($index) {
