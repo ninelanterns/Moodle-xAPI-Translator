@@ -33,7 +33,7 @@ class QuestionSubmitted extends AttemptStarted {
 
         //The attempt extension for the attempt includes all question data. 
         //For questions, only include data relevant to the current question. 
-        $template['attempt']->questions = [$questionAttempt];
+        $template['attempt_ext']->questions = [$questionAttempt];
         $translatorevent['attempt_ext'] = $template['attempt']->questions;
         $translatorevent['question_attempt_ext'] = $questionAttempt;
         $translatorevent['question_attempt_ext_key'] = 'http://lrs.learninglocker.net/define/extensions/moodle_question_attempt';
