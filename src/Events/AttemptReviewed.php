@@ -8,11 +8,6 @@ class AttemptReviewed extends AttemptStarted {
      * @override AttemtStarted
      */
     public function read(array $opts) {
-        $translatorevents = [$this->attemptStatement($opts)];
-        return $translatorevents;
-    }
-
-    protected function attemptStatement(array $opts) {
         $seconds = $opts['attempt']->timefinish - $opts['attempt']->timestart;
         $duration = "PT".(string) $seconds."S";
         $scoreRaw = (float) ($opts['attempt']->sumgrades ?: 0);
