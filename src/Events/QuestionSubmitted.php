@@ -27,28 +27,25 @@ class QuestionSubmitted extends AttemptStarted {
 
     protected function questionStatement($template, $questionAttempt, $question) {
 
-        $translatorevent = [
-            'recipe' => 'attempt_question_completed'
-        ];
-
         //The attempt extension for the attempt includes all question data. 
         //For questions, only include data relevant to the current question. 
         $template['attempt_ext']->questions = [$questionAttempt];
-        $translatorevent['attempt_ext'] = $template['attempt_ext'];
-        $translatorevent['question_attempt_ext'] = $questionAttempt;
-        $translatorevent['question_attempt_ext_key'] = 'http://lrs.learninglocker.net/define/extensions/moodle_question_attempt';
-        $translatorevent['question_ext'] = $question;
-        $translatorevent['question_ext_key'] = 'http://lrs.learninglocker.net/define/extensions/moodle_question';
 
-        $translatorevent['question_name'] = $question->name ?: 'A Moodle quiz question';
-        $translatorevent['question_description'] = strip_tags($question->questiontext) ?: 'A Moodle quiz question';
-
-        //scaled and raw score default is zero;
-        $translatorevent['attempt_score_scaled'] = 0;
-        $translatorevent['attempt_score_raw'] = 0;
-        //minimum score is always 0
-        $translatorevent['attempt_score_min'] = 0;
-        $translatorevent['attempt_score_max'] = $questionAttempt->maxmark;
+        $translatorevent = [
+            'recipe' => 'attempt_question_completed',
+            'attempt_ext' => $template['attempt_ext'],
+            'question_attempt_ext' => $questionAttempt,
+            'question_attempt_ext_key' => 'http://lrs.learninglocker.net/define/extensions/moodle_question_attempt',
+            'question_ext' => $question,
+            'question_ext_key' => 'http://lrs.learninglocker.net/define/extensions/moodle_question',
+            'question_name' => $question->name ?: 'A Moodle quiz question',
+            'question_description' => strip_tags($question->questiontext) ?: 'A Moodle quiz question',
+            'attempt_score_scaled' => 0, //default
+            'attempt_score_raw' => 0, //default
+            'attempt_score_min' => 0, //always 0
+            'attempt_score_max' => $questionAttempt->maxmark,
+            'attempt_response' => $questionAttempt->responsesummary, //default
+        ];
 
         $submittedState = $this->getLastState($questionAttempt);
 
@@ -57,9 +54,6 @@ class QuestionSubmitted extends AttemptStarted {
         }
 
         $translatorevent = $this->resultFromState ($translatorevent, $submittedState);
-
-        //default response if it can't be modelled
-        $translatorevent['attempt_response'] = $questionAttempt->responsesummary;
 
         //Due to the infinite nature of Moodle question types, determine xAPI question type based on
         //the available question data, rather than the type declared in $question->qtype
