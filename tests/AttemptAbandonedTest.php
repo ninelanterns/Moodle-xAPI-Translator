@@ -1,7 +1,7 @@
 <?php namespace MXTranslator\Tests;
 use \MXTranslator\Events\AttemptAbandoned as Event;
 
-class AttemptAbandonedTest extends AttemptStartedTest {
+class AttemptAbandonedTest extends AttemptReviewedTest {
     protected static $recipe_name = 'attempt_completed';
 
     /**
@@ -14,7 +14,5 @@ class AttemptAbandonedTest extends AttemptStartedTest {
 
     protected function assertAttempt($input, $output) {
         parent::assertAttempt($input, $output);
-        $this->assertEquals((float) $input->sumgrades, $output['attempt_result']);
-        $this->assertEquals($input->state === 'finished', $output['attempt_completed']);
     }
 }
