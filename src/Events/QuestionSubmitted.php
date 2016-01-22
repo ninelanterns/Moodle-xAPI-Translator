@@ -25,6 +25,13 @@ class QuestionSubmitted extends AttemptStarted {
         return $translatorevents;
     }
 
+    /**
+     * Build a translator event for an individual question attempt
+     * @param [String => Mixed] $template
+     * @param PHPObj $questionAttempt
+     * @param PHPObj $question
+     * @return [String => Mixed]
+     */
     protected function questionStatement($template, $questionAttempt, $question) {
 
         //The attempt extension for the attempt includes all question data. 
@@ -53,7 +60,7 @@ class QuestionSubmitted extends AttemptStarted {
             $translatorevent['time'] = date('c', $submittedState->timestamp);
         }
 
-        $translatorevent = $this->resultFromState ($translatorevent, $submittedState);
+        $translatorevent = $this->resultFromState ($translatorevent, $questionAttempt, $submittedState);
 
         //Due to the infinite nature of Moodle question types, determine xAPI question type based on
         //the available question data, rather than the type declared in $question->qtype
@@ -69,7 +76,14 @@ class QuestionSubmitted extends AttemptStarted {
         return array_merge($template, $translatorevent);
     }
 
-    public function resultFromState ($translatorevent, $submittedState){
+    /**
+     * Add some result data to translator event for an individual question attempt based on Moodle's question attempt state
+     * @param [String => Mixed] $translatorevent
+     * @param PHPObj $questionAttempt
+     * @param PHPObj $submittedState
+     * @return [String => Mixed]
+     */
+    public function resultFromState ($translatorevent, $questionAttempt, $submittedState){
         switch ($submittedState->state) {
             case "todo":
                 $translatorevent['attempt_completed'] = false;
@@ -110,6 +124,13 @@ class QuestionSubmitted extends AttemptStarted {
         return $translatorevent;
     }
 
+    /**
+     * Add data specifc to multichoice and true/false question types to a translator event
+     * @param [String => Mixed] $translatorevent
+     * @param PHPObj $questionAttempt
+     * @param PHPObj $question
+     * @return [String => Mixed]
+     */
     public function multichoiceStatement ($translatorevent, $questionAttempt, $question){
         $choices = [];
         foreach ($question->answers as $answerId => $answer) {
@@ -159,6 +180,11 @@ class QuestionSubmitted extends AttemptStarted {
         return $translatorevent;
     }
 
+    /**
+     * Get pertient data from the last recorded step of a learners interactions within a question attempt
+     * @param PHPObj $questionAttempt
+     * @return [String => Mixed]
+     */
     private function getLastState($questionAttempt){
         //Moodle answer steps each have a sequence number which is always a positive number.
         //Default placeholder to -1 so that the first item we check will always be greater than the placeholder
