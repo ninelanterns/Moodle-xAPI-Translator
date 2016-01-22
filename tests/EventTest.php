@@ -97,7 +97,7 @@ abstract class EventTest extends PhpUnitTestCase {
         //output is an associative array
         $this->assertEquals(0, count(array_filter(array_keys($output), 'is_string')));
         //length of output is correct
-        $this->assertEquals($input->inputlength, count($output));
+        $this->assertEquals($input['inputlength'], count($output));
     }
 
     protected function assertOutput($input, $output) {
