@@ -14,7 +14,8 @@ class QuestionSubmittedTest extends AttemptStartedTest {
 
     protected function constructInput() {
         $input = array_merge(parent::constructInput(), [
-            'questions' => $this->constructQuestions()
+            'questions' => $this->constructQuestions(),
+            'inputlength' => 3
         ]);
         $input['attempt']->questions = $this->constructQuestionAttempts();
 
