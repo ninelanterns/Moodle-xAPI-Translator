@@ -126,15 +126,8 @@ class QuestionSubmitted extends AttemptStarted {
             }
             $translatorevent['interaction_correct_responses'] = [implode('[,]', $correctResponses)];
 
-            //true-false is basically a special case of choice
-            $trueWords = ['true', 'yes', 'y', 'right', 'correct', 'agree'];
-            $falseWords = ['false', 'no', 'n', 'wrong', 'incorrect', 'disagree'];
-            $lowerCaseChoices = array_map('strtolower', $choices);
-            if (
-                count($choices) == 2
-                && (count(array_intersect($trueWords, $lowerCaseChoices)) == 1)
-                && (count(array_intersect($falseWords, $lowerCaseChoices)) == 1)
-            ) {
+            //special handling of true-false question type
+            if ($question->qtype == 'truefalse') {
                 $translatorevent['interaction_type'] = "true-false";
                 $translatorevent['interaction_choices'] = null;
 
