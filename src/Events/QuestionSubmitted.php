@@ -160,13 +160,18 @@ class QuestionSubmitted extends AttemptStarted {
     }
 
     private function getLastState($questionAttempt){
+        //Moodle answer steps each have a sequence number which is always a positive number.
+        //Default placeholder to -1 so that the first item we check will always be greater than the placeholder
         $sequencenumber = -1;
+        //default state in case there are no steps
         $state = (object)[
             "state" => "todo",
             "timestamp" => null
         ];
+        //cycle through steps to find the last one (highest sequence number)
         foreach ($questionAttempt->steps as $stepId => $step) {
             if ($step->sequencenumber > $sequencenumber) {
+                //Now this step has the highest sequence number we've seen. 
                 $sequencenumber = $step->sequencenumber;
                 $state = (object)[
                     "state" => $step->state,
