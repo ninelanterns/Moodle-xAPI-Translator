@@ -56,6 +56,26 @@ class QuestionSubmitted extends AttemptStarted {
             $translatorevent['time'] = date('c', $submittedState->timestamp);
         }
 
+        $translatorevent = $this->resultFromState ($translatorevent, $submittedState);
+
+        //default response if it can't be modelled
+        $translatorevent['attempt_response'] = $questionAttempt->responsesummary;
+
+        //Due to the infinite nature of Moodle question types, determine xAPI question type based on
+        //the available question data, rather than the type declared in $question->qtype
+        //First, see if it's possible to model the question as a 'choice' (or 'truefalse'). 
+        if (!is_null($question->answers) && ($question->answers !== [])) {
+            $translatorevent = $this->multichoiceStatement ($translatorevent, $questionAttempt, $question);
+        }
+        else {
+            //other question type
+            $translatorevent['interaction_type'] = "other";
+        }
+
+        return array_merge($template, $translatorevent);
+    }
+
+    public function resultFromState ($translatorevent, $submittedState){
         switch ($submittedState->state) {
             case "todo":
                 $translatorevent['attempt_completed'] = false;
@@ -93,65 +113,56 @@ class QuestionSubmitted extends AttemptStarted {
                 break;
         }
 
-        //default response if it can't be modelled
-        $translatorevent['attempt_response'] = $questionAttempt->responsesummary;
+        return $translatorevent;
+    }
 
-        //Due to the infinite nature of Moodle question types, determine xAPI question type based on
-        //the available question data, rather than the type declared in $question->qtype
-        //First, see if it's possible to model the question as a 'choice'. 
-        if (!is_null($question->answers) && ($question->answers !== [])) {
-            $choices = [];
-            foreach ($question->answers as $answerId => $answer) {
-                $choices[$answerId] = strip_tags($answer->answer);
-            }
-            //If there are answers, assume multiple choice until proven otherwise
-            $translatorevent['interaction_type'] = 'choice';
-            $translatorevent['interaction_choices'] = $choices;
+    public function multichoiceStatement ($translatorevent, $questionAttempt, $question){
+        $choices = [];
+        foreach ($question->answers as $answerId => $answer) {
+            $choices[$answerId] = strip_tags($answer->answer);
+        }
+        //If there are answers, assume multiple choice until proven otherwise
+        $translatorevent['interaction_type'] = 'choice';
+        $translatorevent['interaction_choices'] = $choices;
 
-            $responses = [];
-            //We can't simply explode $questionAttempt->responsesummary using "; " as the delimiter
-            //because responses may contain the string "; ". 
-            foreach ($choices as $answerId => $choice) {
-                if (!(strpos($questionAttempt->responsesummary, $choice) === false)) {
-                    array_push($responses, $answerId);
-                }
-            }
-            $translatorevent['attempt_response'] = implode('[,]', $responses);
-
-            $correctResponses = [];
-            foreach ($choices as $answerId => $choice) {
-                if (!(strpos($questionAttempt->rightanswer, $choice) === false)) {
-                    array_push($correctResponses, $answerId);
-                }
-            }
-            $translatorevent['interaction_correct_responses'] = [implode('[,]', $correctResponses)];
-
-            //special handling of true-false question type
-            if ($question->qtype == 'truefalse') {
-                $translatorevent['interaction_type'] = "true-false";
-                $translatorevent['interaction_choices'] = null;
-
-                if (in_array(strtolower($questionAttempt->responsesummary), $trueWords)) {
-                    $translatorevent['attempt_response'] = "true";
-                }
-                elseif (in_array(strtolower($questionAttempt->responsesummary), $falseWords)) {
-                    $translatorevent['attempt_response'] = "false";
-                }
-
-                if (in_array(strtolower($questionAttempt->rightanswer), $trueWords)) {
-                    $translatorevent['interaction_correct_responses'] = ["true"];
-                }
-                elseif (in_array(strtolower($questionAttempt->rightanswer), $falseWords)) {
-                    $translatorevent['interaction_correct_responses'] = ["false"];
-                }
+        $responses = [];
+        //We can't simply explode $questionAttempt->responsesummary using "; " as the delimiter
+        //because responses may contain the string "; ". 
+        foreach ($choices as $answerId => $choice) {
+            if (!(strpos($questionAttempt->responsesummary, $choice) === false)) {
+                array_push($responses, $answerId);
             }
         }
-        else {
-            //other question type
-            $translatorevent['interaction_type'] = "other";
-        }
+        $translatorevent['attempt_response'] = implode('[,]', $responses);
 
-        return array_merge($template, $translatorevent);
+        $correctResponses = [];
+        foreach ($choices as $answerId => $choice) {
+            if (!(strpos($questionAttempt->rightanswer, $choice) === false)) {
+                array_push($correctResponses, $answerId);
+            }
+        }
+        $translatorevent['interaction_correct_responses'] = [implode('[,]', $correctResponses)];
+
+        //special handling of true-false question type (some overlap with multichoice)
+        if ($question->qtype == 'truefalse') {
+            $translatorevent['interaction_type'] = "true-false";
+            $translatorevent['interaction_choices'] = null;
+
+            if (in_array(strtolower($questionAttempt->responsesummary), $trueWords)) {
+                $translatorevent['attempt_response'] = "true";
+            }
+            elseif (in_array(strtolower($questionAttempt->responsesummary), $falseWords)) {
+                $translatorevent['attempt_response'] = "false";
+            }
+
+            if (in_array(strtolower($questionAttempt->rightanswer), $trueWords)) {
+                $translatorevent['interaction_correct_responses'] = ["true"];
+            }
+            elseif (in_array(strtolower($questionAttempt->rightanswer), $falseWords)) {
+                $translatorevent['interaction_correct_responses'] = ["false"];
+            }
+        }
+        return $translatorevent;
     }
 
     private function getLastState($questionAttempt){
