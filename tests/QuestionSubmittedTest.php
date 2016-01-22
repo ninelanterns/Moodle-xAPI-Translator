@@ -76,7 +76,8 @@ class QuestionSubmittedTest extends AttemptStartedTest {
                     'id' => '2',
                     'answer' => 'wrong test answer'
                 ]
-            ]
+            ],
+            'qtype' => 'multichoice'
         ];
     }
 
