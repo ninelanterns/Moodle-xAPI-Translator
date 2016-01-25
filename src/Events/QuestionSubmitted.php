@@ -59,11 +59,11 @@ class QuestionSubmitted extends AttemptStarted {
             $translatorevent['time'] = date('c', $submittedState->timestamp);
         }
 
-        $translatorevent = $this->resultFromState ($translatorevent, $questionAttempt, $submittedState);
+        $translatorevent = $this->resultFromState($translatorevent, $questionAttempt, $submittedState);
 
         // Where possible, determine xAPI question type based on available data rather than $question->qtype.
         if (!is_null($question->answers) && ($question->answers !== [])) {
-            $translatorevent = $this->multichoiceStatement ($translatorevent, $questionAttempt, $question);
+            $translatorevent = $this->multichoiceStatement($translatorevent, $questionAttempt, $question);
         } else {
 
             // Other question type.
@@ -80,7 +80,7 @@ class QuestionSubmitted extends AttemptStarted {
      * @param PHPObj $submittedState
      * @return [String => Mixed]
      */
-    public function resultFromState($translatorevent, $questionAttempt, $submittedState){
+    public function resultFromState($translatorevent, $questionAttempt, $submittedState) {
         switch ($submittedState->state) {
             case "todo":
                 $translatorevent['attempt_completed'] = false;
@@ -163,15 +163,13 @@ class QuestionSubmitted extends AttemptStarted {
 
             if (in_array(strtolower($questionAttempt->responsesummary), $trueWords)) {
                 $translatorevent['attempt_response'] = "true";
-            }
-            else if (in_array(strtolower($questionAttempt->responsesummary), $falseWords)) {
+            } else if (in_array(strtolower($questionAttempt->responsesummary), $falseWords)) {
                 $translatorevent['attempt_response'] = "false";
             }
 
             if (in_array(strtolower($questionAttempt->rightanswer), $trueWords)) {
                 $translatorevent['interaction_correct_responses'] = ["true"];
-            }
-            else if (in_array(strtolower($questionAttempt->rightanswer), $falseWords)) {
+            } else if (in_array(strtolower($questionAttempt->rightanswer), $falseWords)) {
                 $translatorevent['interaction_correct_responses'] = ["false"];
             }
         }
@@ -183,7 +181,7 @@ class QuestionSubmitted extends AttemptStarted {
      * @param PHPObj $questionAttempt
      * @return [String => Mixed]
      */
-    private function getLastState($questionAttempt){
+    private function getLastState($questionAttempt) {
 
         // Default placeholder to -1 so that the first item we check will always be greater than the placeholder.
         $sequencenumber = -1;
