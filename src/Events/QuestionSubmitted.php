@@ -46,6 +46,7 @@ class QuestionSubmitted extends AttemptStarted {
             'question_ext_key' => 'http://lrs.learninglocker.net/define/extensions/moodle_question',
             'question_name' => $question->name ?: 'A Moodle quiz question',
             'question_description' => strip_tags($question->questiontext) ?: 'A Moodle quiz question',
+            'question_url' => $question->url,
             'attempt_score_scaled' => 0, //default
             'attempt_score_raw' => 0, //default
             'attempt_score_min' => 0, //always 0
