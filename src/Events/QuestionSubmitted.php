@@ -34,8 +34,7 @@ class QuestionSubmitted extends AttemptStarted {
      */
     protected function questionStatement($template, $questionAttempt, $question) {
 
-        // The attempt extension for the attempt includes all question data. 
-        // For questions, only include data relevant to the current question. 
+        // For questions, only include data relevant to the current question in the attempt extension. 
         $template['attempt_ext']->questions = [$questionAttempt];
 
         $translatorevent = [
@@ -62,9 +61,7 @@ class QuestionSubmitted extends AttemptStarted {
 
         $translatorevent = $this->resultFromState ($translatorevent, $questionAttempt, $submittedState);
 
-        // Due to the infinite nature of Moodle question types, determine xAPI question type based on
-        // the available question data, rather than the type declared in $question->qtype
-        // First, see if it's possible to model the question as a 'choice' (or 'truefalse'). 
+        // Where possible, determine xAPI question type based on available data rather than $question->qtype.
         if (!is_null($question->answers) && ($question->answers !== [])) {
             $translatorevent = $this->multichoiceStatement ($translatorevent, $questionAttempt, $question);
         } else {
@@ -143,8 +140,7 @@ class QuestionSubmitted extends AttemptStarted {
 
         $responses = [];
 
-        // We can't simply explode $questionAttempt->responsesummary using "; " as the delimiter
-        // because responses may contain the string "; ". 
+        // We can't simply explode $questionAttempt->responsesummary because responses may contain "; ". 
         foreach ($choices as $answerId => $choice) {
             if (!(strpos($questionAttempt->responsesummary, $choice) === false)) {
                 array_push($responses, $answerId);
@@ -189,7 +185,6 @@ class QuestionSubmitted extends AttemptStarted {
      */
     private function getLastState($questionAttempt){
 
-        // Moodle answer steps each have a sequence number which is always a positive number.
         // Default placeholder to -1 so that the first item we check will always be greater than the placeholder.
         $sequencenumber = -1;
 
