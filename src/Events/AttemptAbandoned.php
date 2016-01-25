@@ -9,6 +9,7 @@ class AttemptAbandoned extends AttemptReviewed {
      */
     public function read(array $opts) {
         return [array_merge(parent::read($opts)[0], [
+            'recipe' => 'attempt_abandoned'
         ])];
     }
 }

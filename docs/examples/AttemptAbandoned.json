@@ -34,7 +34,7 @@
         },
         "context_ext_key": "http:\/\/lrs.learninglocker.net\/define\/extensions\/moodle_logstore_standard_log",
         "time": "2015-06-18T11:53:09+01:00",
-        "recipe": "attempt_started",
+        "recipe": "attempt_abandoned",
         "course_url": "http:\/\/localhost\/moodle\/course.php?id=2",
         "course_name": "My Test Course 1",
         "course_description": "<p>A test course.<\/p>",
