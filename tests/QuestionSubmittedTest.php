@@ -66,6 +66,7 @@ class QuestionSubmittedTest extends AttemptStartedTest {
             'id' => 1,
             'name' => 'test question {$index}',
             'questiontext' => 'test questiontext',
+            'url' => 'http://localhost/moodle/question/question.php?id=23',
             'answers' => [
                 '1'=> (object)[
                     'id' => '1',
@@ -109,6 +110,7 @@ class QuestionSubmittedTest extends AttemptStartedTest {
     protected function assertQuestion($input, $output) {
         $this->assertEquals($input[0]->name, $output['question_name']);
         $this->assertEquals($input[0]->questiontext, $output['question_description']);
+        $this->assertEquals($input[0]->questionurl, $output['question_url']);
         $this->assertEquals($input[0]->answers[2]->answer, $output['interaction_choices'][2]);
     }
 }
