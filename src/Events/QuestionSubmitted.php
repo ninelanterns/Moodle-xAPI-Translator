@@ -128,7 +128,7 @@ class QuestionSubmitted extends AttemptStarted {
      * @param PHPObj $question
      * @return [String => Mixed]
      */
-    public function multichoiceStatement($translatorevent, $questionAttempt, $question){
+    public function multichoiceStatement($translatorevent, $questionAttempt, $question) {
         $choices = [];
         foreach ($question->answers as $answerId => $answer) {
             $choices[$answerId] = strip_tags($answer->answer);
