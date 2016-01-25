@@ -10,7 +10,7 @@ class QuestionSubmitted extends AttemptStarted {
     public function read(array $opts) {
         $translatorevents = [];
 
-        //push question statements to $translatorevents['events']
+        // Push question statements to $translatorevents['events'].
         foreach ($opts['attempt']->questions as $questionId => $questionAttempt) {
             array_push(
                 $translatorevents,
@@ -26,7 +26,7 @@ class QuestionSubmitted extends AttemptStarted {
     }
 
     /**
-     * Build a translator event for an individual question attempt
+     * Build a translator event for an individual question attempt.
      * @param [String => Mixed] $template
      * @param PHPObj $questionAttempt
      * @param PHPObj $question
@@ -34,8 +34,8 @@ class QuestionSubmitted extends AttemptStarted {
      */
     protected function questionStatement($template, $questionAttempt, $question) {
 
-        //The attempt extension for the attempt includes all question data. 
-        //For questions, only include data relevant to the current question. 
+        // The attempt extension for the attempt includes all question data. 
+        // For questions, only include data relevant to the current question. 
         $template['attempt_ext']->questions = [$questionAttempt];
 
         $translatorevent = [
@@ -62,14 +62,14 @@ class QuestionSubmitted extends AttemptStarted {
 
         $translatorevent = $this->resultFromState ($translatorevent, $questionAttempt, $submittedState);
 
-        //Due to the infinite nature of Moodle question types, determine xAPI question type based on
-        //the available question data, rather than the type declared in $question->qtype
-        //First, see if it's possible to model the question as a 'choice' (or 'truefalse'). 
+        // Due to the infinite nature of Moodle question types, determine xAPI question type based on
+        // the available question data, rather than the type declared in $question->qtype
+        // First, see if it's possible to model the question as a 'choice' (or 'truefalse'). 
         if (!is_null($question->answers) && ($question->answers !== [])) {
             $translatorevent = $this->multichoiceStatement ($translatorevent, $questionAttempt, $question);
-        }
-        else {
-            //other question type
+        } else {
+
+            // Other question type.
             $translatorevent['interaction_type'] = "other";
         }
 
@@ -125,7 +125,7 @@ class QuestionSubmitted extends AttemptStarted {
     }
 
     /**
-     * Add data specifc to multichoice and true/false question types to a translator event
+     * Add data specifc to multichoice and true/false question types to a translator event.
      * @param [String => Mixed] $translatorevent
      * @param PHPObj $questionAttempt
      * @param PHPObj $question
@@ -136,13 +136,15 @@ class QuestionSubmitted extends AttemptStarted {
         foreach ($question->answers as $answerId => $answer) {
             $choices[$answerId] = strip_tags($answer->answer);
         }
-        //If there are answers, assume multiple choice until proven otherwise
+
+        // If there are answers, assume multiple choice until proven otherwise.
         $translatorevent['interaction_type'] = 'choice';
         $translatorevent['interaction_choices'] = $choices;
 
         $responses = [];
-        //We can't simply explode $questionAttempt->responsesummary using "; " as the delimiter
-        //because responses may contain the string "; ". 
+
+        // We can't simply explode $questionAttempt->responsesummary using "; " as the delimiter
+        // because responses may contain the string "; ". 
         foreach ($choices as $answerId => $choice) {
             if (!(strpos($questionAttempt->responsesummary, $choice) === false)) {
                 array_push($responses, $answerId);
@@ -158,7 +160,7 @@ class QuestionSubmitted extends AttemptStarted {
         }
         $translatorevent['interaction_correct_responses'] = [implode('[,]', $correctResponses)];
 
-        //special handling of true-false question type (some overlap with multichoice)
+        // Special handling of true-false question type (some overlap with multichoice).
         if ($question->qtype == 'truefalse') {
             $translatorevent['interaction_type'] = "true-false";
             $translatorevent['interaction_choices'] = null;
@@ -166,14 +168,14 @@ class QuestionSubmitted extends AttemptStarted {
             if (in_array(strtolower($questionAttempt->responsesummary), $trueWords)) {
                 $translatorevent['attempt_response'] = "true";
             }
-            elseif (in_array(strtolower($questionAttempt->responsesummary), $falseWords)) {
+            else if (in_array(strtolower($questionAttempt->responsesummary), $falseWords)) {
                 $translatorevent['attempt_response'] = "false";
             }
 
             if (in_array(strtolower($questionAttempt->rightanswer), $trueWords)) {
                 $translatorevent['interaction_correct_responses'] = ["true"];
             }
-            elseif (in_array(strtolower($questionAttempt->rightanswer), $falseWords)) {
+            else if (in_array(strtolower($questionAttempt->rightanswer), $falseWords)) {
                 $translatorevent['interaction_correct_responses'] = ["false"];
             }
         }
@@ -181,23 +183,27 @@ class QuestionSubmitted extends AttemptStarted {
     }
 
     /**
-     * Get pertient data from the last recorded step of a learners interactions within a question attempt
+     * Get pertient data from the last recorded step of a learners interactions within a question attempt.
      * @param PHPObj $questionAttempt
      * @return [String => Mixed]
      */
     private function getLastState($questionAttempt){
-        //Moodle answer steps each have a sequence number which is always a positive number.
-        //Default placeholder to -1 so that the first item we check will always be greater than the placeholder
+
+        // Moodle answer steps each have a sequence number which is always a positive number.
+        // Default placeholder to -1 so that the first item we check will always be greater than the placeholder.
         $sequencenumber = -1;
-        //default state in case there are no steps
+
+        // Default state in case there are no steps.
         $state = (object)[
             "state" => "todo",
             "timestamp" => null
         ];
-        //cycle through steps to find the last one (highest sequence number)
+
+        // Cycle through steps to find the last one (the one with the highest sequence number).
         foreach ($questionAttempt->steps as $stepId => $step) {
             if ($step->sequencenumber > $sequencenumber) {
-                //Now this step has the highest sequence number we've seen. 
+
+                // Now this step has the highest sequence number we've seen. 
                 $sequencenumber = $step->sequencenumber;
                 $state = (object)[
                     "state" => $step->state,
