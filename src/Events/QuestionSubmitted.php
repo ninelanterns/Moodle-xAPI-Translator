@@ -158,19 +158,19 @@ class QuestionSubmitted extends AttemptStarted {
 
         // Special handling of true-false question type (some overlap with multichoice).
         if ($question->qtype == 'truefalse') {
-            $translatorevent['interaction_type'] = "true-false";
+            $translatorevent['interaction_type'] = 'true-false';
             $translatorevent['interaction_choices'] = null;
 
-            if (in_array(strtolower($questionAttempt->responsesummary), $trueWords)) {
-                $translatorevent['attempt_response'] = "true";
-            } else if (in_array(strtolower($questionAttempt->responsesummary), $falseWords)) {
-                $translatorevent['attempt_response'] = "false";
+            if ($questionAttempt->responsesummary == 'True') {
+                $translatorevent['attempt_response'] = 'true';
+            } else if ($questionAttempt->responsesummary == 'False') {
+                $translatorevent['attempt_response'] = 'false';
             }
 
-            if (in_array(strtolower($questionAttempt->rightanswer), $trueWords)) {
-                $translatorevent['interaction_correct_responses'] = ["true"];
-            } else if (in_array(strtolower($questionAttempt->rightanswer), $falseWords)) {
-                $translatorevent['interaction_correct_responses'] = ["false"];
+            if ($questionAttempt->rightanswer == 'True') {
+                $translatorevent['interaction_correct_responses'] = ['true'];
+            } else if ($questionAttempt->rightanswer == 'False') {
+                $translatorevent['interaction_correct_responses'] = ['false'];
             }
         }
         return $translatorevent;
