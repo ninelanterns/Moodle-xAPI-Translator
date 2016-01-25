@@ -27,11 +27,10 @@ class AttemptReviewed extends AttemptStarted {
         if ($scoreRaw >= 0) {
             $scoreScaled = $scoreRaw / $scoreMax;
         }
-        else
-        {
+        else {
             $scoreScaled = $scoreRaw / $scoreMin;
         }
-        return array_merge(parent::read($opts), [
+        return [array_merge(parent::read($opts)[0], [
             'recipe' => 'attempt_completed',
             'attempt_score_raw' => $scoreRaw,
             'attempt_score_min' => $scoreMin,
@@ -40,6 +39,7 @@ class AttemptReviewed extends AttemptStarted {
             'attempt_success' => $success,
             'attempt_completed' => $opts['attempt']->state === 'finished',
             'attempt_duration' => $duration,
-        ]);
+        ])];
     }
+
 }

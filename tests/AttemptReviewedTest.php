@@ -44,9 +44,7 @@ class AttemptReviewedTest extends AttemptStartedTest {
         $this->assertEquals(($input['attempt']->sumgrades >= $input['grade_items']->gradepass), $output['attempt_success']);
         if ($output['attempt_score_scaled']  >= 0) {
             $this->assertEquals($output['attempt_score_scaled'], $output['attempt_score_raw'] / $output['attempt_score_max']);
-        }
-        else
-        {
+        } else {
             $this->assertEquals($output['attempt_score_scaled'], $output['attempt_score_raw'] / $output['attempt_score_min']);
         }
     }

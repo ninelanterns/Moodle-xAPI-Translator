@@ -8,7 +8,7 @@ class DiscussionViewed extends ModuleViewed {
      * @override ModuleViewed
      */
     public function read(array $opts) {
-        return array_merge(parent::read($opts), [
+        return [array_merge(parent::read($opts)[0], [
             'recipe' => 'discussion_viewed',
             'discussion_url' => $opts['discussion']->url,
             'discussion_name' => $opts['discussion']->name,
@@ -16,6 +16,6 @@ class DiscussionViewed extends ModuleViewed {
             'discussion_type' => static::$xapi_type.$opts['discussion']->type,
             'discussion_ext' => $opts['discussion'],
             'discussion_ext_key' => 'http://lrs.learninglocker.net/define/extensions/moodle_discussion',
-        ]);
+        ])];
     }
 }

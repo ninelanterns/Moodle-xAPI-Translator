@@ -8,7 +8,7 @@ class EnrolmentCreated extends CourseViewed {
      * @override CourseViewed
      */
     public function read(array $opts) {
-        return array_merge(parent::read($opts), [
+        return [array_merge(parent::read($opts)[0], [
             'recipe' => 'enrolment_created',
             'user_id' => $opts['relateduser']->id,
             'user_url' => $opts['relateduser']->url,
@@ -16,6 +16,6 @@ class EnrolmentCreated extends CourseViewed {
             'instructor_id' => $opts['user']->id,
             'instructor_url' => $opts['user']->url,
             'instructor_name' => $opts['user']->username,
-        ]);
+        ])];
     }
 }

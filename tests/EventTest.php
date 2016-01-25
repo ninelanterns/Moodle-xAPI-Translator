@@ -19,8 +19,11 @@ abstract class EventTest extends PhpUnitTestCase {
      */
     public function testRead() {
         $input = $this->constructInput();
-        $output = $this->event->read($input);
-        $this->assertOutput($input, $output);
+        $outputs = $this->event->read($input);
+        $this->assertOutputs($input, $outputs);
+        foreach ($outputs as $output) {
+            $this->assertOutput($input, $output);
+        }
     }
 
     protected function constructInput() {
@@ -31,7 +34,7 @@ abstract class EventTest extends PhpUnitTestCase {
             'app' => $this->constructApp(),
             'source' => $this->constructSource(),
             'event' => $this->constructEvent('\core\event\course_viewed'),
-            'info' => $this->constructInfo(),
+            'info' => $this->constructInfo()
         ];
     }
 
@@ -87,6 +90,13 @@ abstract class EventTest extends PhpUnitTestCase {
             'lang' => 'en',
             'type' => 'moodle_source',
         ];
+    }
+
+    protected function assertOutputs($input, $output) {
+        //output is an associative array
+        $this->assertEquals(0, count(array_filter(array_keys($output), 'is_string')));
+        //length of output is 1. Overwrite this function if a different value is needed. 
+        $this->assertEquals(1 , count($output));
     }
 
     protected function assertOutput($input, $output) {

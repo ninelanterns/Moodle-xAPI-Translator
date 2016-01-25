@@ -8,11 +8,11 @@ class UserRegistered extends Event {
      * @override Event
      */
     public function read(array $opts) {
-        return array_merge(parent::read($opts), [
+        return [array_merge(parent::read($opts)[0], [
             'recipe' => 'user_registered',
             'user_id' => $opts['relateduser']->id,
             'user_url' => $opts['relateduser']->url,
             'user_name' => $opts['relateduser']->username,
-        ]);
+        ])];
     }
 }
