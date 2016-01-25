@@ -34,8 +34,7 @@ abstract class EventTest extends PhpUnitTestCase {
             'app' => $this->constructApp(),
             'source' => $this->constructSource(),
             'event' => $this->constructEvent('\core\event\course_viewed'),
-            'info' => $this->constructInfo(),
-            'inputlength' => 1
+            'info' => $this->constructInfo()
         ];
     }
 
@@ -96,8 +95,8 @@ abstract class EventTest extends PhpUnitTestCase {
     protected function assertOutputs($input, $output) {
         //output is an associative array
         $this->assertEquals(0, count(array_filter(array_keys($output), 'is_string')));
-        //length of output is correct
-        $this->assertEquals($input['inputlength'], count($output));
+        //length of output is 1. Overwrite this function if a different value is needed. 
+        $this->assertEquals(1 , count($output));
     }
 
     protected function assertOutput($input, $output) {

@@ -83,7 +83,7 @@ class QuestionSubmitted extends AttemptStarted {
      * @param PHPObj $submittedState
      * @return [String => Mixed]
      */
-    public function resultFromState ($translatorevent, $questionAttempt, $submittedState){
+    public function resultFromState($translatorevent, $questionAttempt, $submittedState){
         switch ($submittedState->state) {
             case "todo":
                 $translatorevent['attempt_completed'] = false;
@@ -131,7 +131,7 @@ class QuestionSubmitted extends AttemptStarted {
      * @param PHPObj $question
      * @return [String => Mixed]
      */
-    public function multichoiceStatement ($translatorevent, $questionAttempt, $question){
+    public function multichoiceStatement($translatorevent, $questionAttempt, $question){
         $choices = [];
         foreach ($question->answers as $answerId => $answer) {
             $choices[$answerId] = strip_tags($answer->answer);

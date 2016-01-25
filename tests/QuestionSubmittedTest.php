@@ -14,8 +14,7 @@ class QuestionSubmittedTest extends AttemptStartedTest {
 
     protected function constructInput() {
         $input = array_merge(parent::constructInput(), [
-            'questions' => $this->constructQuestions(),
-            'inputlength' => 3
+            'questions' => $this->constructQuestions()
         ]);
         $input['attempt']->questions = $this->constructQuestionAttempts();
 
@@ -79,6 +78,13 @@ class QuestionSubmittedTest extends AttemptStartedTest {
             ],
             'qtype' => 'multichoice'
         ];
+    }
+
+    protected function assertOutputs($input, $output) {
+        //output is an associative array
+        $this->assertEquals(0, count(array_filter(array_keys($output), 'is_string')));
+        //length of output is 3.
+        $this->assertEquals(3 , count($output));
     }
 
     protected function assertOutput($input, $output) {

@@ -13,11 +13,9 @@ class AttemptReviewedTest extends AttemptStartedTest {
     }
 
     protected function constructInput() {
-        $input = array_merge(parent::constructInput(), [
+        return array_merge(parent::constructInput(), [
             'grade_items' => $this->constructGradeitems()
         ]);
-
-        return $input;
     }
 
     private function constructGradeitems() {
@@ -46,9 +44,7 @@ class AttemptReviewedTest extends AttemptStartedTest {
         $this->assertEquals(($input['attempt']->sumgrades >= $input['grade_items']->gradepass), $output['attempt_success']);
         if ($output['attempt_score_scaled']  >= 0) {
             $this->assertEquals($output['attempt_score_scaled'], $output['attempt_score_raw'] / $output['attempt_score_max']);
-        }
-        else
-        {
+        } else {
             $this->assertEquals($output['attempt_score_scaled'], $output['attempt_score_raw'] / $output['attempt_score_min']);
         }
     }
