@@ -311,13 +311,13 @@
         "attempt_score_max": "1.0000000",
         "attempt_completed": true,
         "attempt_success": false,
-        "attempt_response": "9[,]10",
+        "attempt_response": "moodle_quiz_question_answer_9[,]moodle_quiz_question_answer_10",
         "interaction_type": "choice",
         "interaction_choices": {
-            "8": "option 1",
-            "9": "option 2",
-            "10": "option 3 (incorrect)"
+            "moodle_quiz_question_answer_8": "option 1",
+            "moodle_quiz_question_answer_9": "option 2",
+            "moodle_quiz_question_answer_10": "option 3 (incorrect)"
         },
-        "interaction_correct_responses": ["8[,]9"]
+        "interaction_correct_responses": ["moodle_quiz_question_answer_8[,]moodle_quiz_question_answer_9"]
     }
 ]

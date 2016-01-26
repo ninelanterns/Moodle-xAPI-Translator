@@ -132,7 +132,7 @@ class QuestionSubmitted extends AttemptStarted {
     public function multichoiceStatement($translatorevent, $questionAttempt, $question) {
         $choices = [];
         foreach ($question->answers as $answerId => $answer) {
-            $choices[$answerId] = strip_tags($answer->answer);
+            $choices['moodle_quiz_question_answer_'.$answerId] = strip_tags($answer->answer);
         }
 
         // If there are answers, assume multiple choice until proven otherwise.
@@ -143,11 +143,28 @@ class QuestionSubmitted extends AttemptStarted {
 
         // We can't simply explode $questionAttempt->responsesummary because responses may contain "; ". 
         foreach ($choices as $answerId => $choice) {
-            if (!(strpos($questionAttempt->responsesummary, $choice) === false)) {
+            $choicePos = strpos($questionAttempt->responsesummary, $choice);
+            if (
+                // Check if choice is contained in the learner's response
+                !($choicePos === false) 
+                // Check choice is prefixed with "; " or at start of string. 
+                && (
+                    ($choicePos == 0)
+                    || (substr($questionAttempt->responsesummary, $choicePos - 2, 2) == "; ")
+                )
+                // Check choice is follow by "; " or at end of string. 
+                && (
+                    ($choicePos == strlen($questionAttempt->responsesummary) -  strlen($choice))
+                    || (substr($questionAttempt->responsesummary, $choicePos + strlen($choice), 2) == "; ")
+                )
+            ) {
                 array_push($responses, $answerId);
             }
         }
-        $translatorevent['attempt_response'] = implode('[,]', $responses);
+
+        if ($responses != []) {
+            $translatorevent['attempt_response'] = implode('[,]', $responses);
+        }
 
         $correctResponses = [];
         foreach ($choices as $answerId => $choice) {
