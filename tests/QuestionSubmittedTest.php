@@ -104,7 +104,7 @@ class QuestionSubmittedTest extends AttemptStartedTest {
         $this->assertEquals((float) $input[0]->steps[1]->fraction, $output['attempt_score_scaled']);
         $this->assertEquals((float) $input[0]->maxmark, $output['attempt_score_max']);
         $this->assertEquals('moodle_quiz_question_answer_1', $output['attempt_response']);
-        $this->assertEquals('moodle_quiz_question_answer_1', $output['interaction_correct_responses']);
+        $this->assertEquals('moodle_quiz_question_answer_1', $output['interaction_correct_responses'][0]);
     }
 
     protected function assertQuestion($input, $output) {
