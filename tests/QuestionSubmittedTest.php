@@ -103,14 +103,13 @@ class QuestionSubmittedTest extends AttemptStartedTest {
         $this->assertEquals((float) $input[0]->maxmark, $output['attempt_score_max']);
         $this->assertEquals((float) $input[0]->steps[1]->fraction, $output['attempt_score_scaled']);
         $this->assertEquals((float) $input[0]->maxmark, $output['attempt_score_max']);
-        $this->assertEquals(1, $output['attempt_response']);
-        $this->assertEquals([1], $output['interaction_correct_responses']);
+        $this->assertEquals('moodle_quiz_question_answer_1', $output['attempt_response']);
+        $this->assertEquals(['moodle_quiz_question_answer_1', $output['interaction_correct_responses']);
     }
 
     protected function assertQuestion($input, $output) {
         $this->assertEquals($input[0]->name, $output['question_name']);
         $this->assertEquals($input[0]->questiontext, $output['question_description']);
-        $this->assertEquals($input[0]->url, $output['question_url']);
-        $this->assertEquals($input[0]->answers[2]->answer, $output['interaction_choices'][2]);
+        $this->assertEquals($input[0]->answers['moodle_quiz_question_answer_2']->answer, $output['interaction_choices']['moodle_quiz_question_answer_2']);
     }
 }
