@@ -23,6 +23,7 @@ abstract class EventTest extends PhpUnitTestCase {
         $this->assertOutputs($input, $outputs);
         foreach ($outputs as $output) {
             $this->assertOutput($input, $output);
+            $this->createExampleFile($output);
         }
     }
 
@@ -95,7 +96,7 @@ abstract class EventTest extends PhpUnitTestCase {
     protected function assertOutputs($input, $output) {
         //output is an associative array
         $this->assertEquals(0, count(array_filter(array_keys($output), 'is_string')));
-        //length of output is 1. Overwrite this function if a different value is needed. 
+        //length of output is 1. Overwrite this function if a different value is needed.
         $this->assertEquals(1 , count($output));
     }
 
@@ -122,7 +123,7 @@ abstract class EventTest extends PhpUnitTestCase {
         $this->assertEquals($input, $output[$type.'_ext']);
         $this->assertEquals($ext_key, $output[$type.'_ext_key']);
     }
-    
+
     protected function assertApp($input, $output, $type) {
         $ext_key = 'http://lrs.learninglocker.net/define/extensions/moodle_course';
         $app_type = 'http://id.tincanapi.com/activitytype/site';
@@ -166,5 +167,12 @@ abstract class EventTest extends PhpUnitTestCase {
             $version,
             $output->{'https://github.com/LearningLocker/Moodle-xAPI-Translator'}
         );
+    }
+
+    protected function createExampleFile($output) {
+        $class_array = explode('\\', get_class($this));
+        $event_name = str_replace('Test', '', array_pop($class_array));
+        $example_file = __DIR__.'/../docs/examples/'.$event_name.'.json';
+        file_put_contents($example_file, json_encode($output, JSON_PRETTY_PRINT));
     }
 }
