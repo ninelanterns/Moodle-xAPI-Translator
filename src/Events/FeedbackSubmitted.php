@@ -27,6 +27,7 @@ class FeedbackSubmitted extends ModuleViewed {
             'attempt_success' => null,
             'attempt_completed' => true,
             'attempt_duration' => null,
+            'time' => date('c', $opts['attempt']->timemodified)
         ])];
     }
 
@@ -35,7 +36,7 @@ class FeedbackSubmitted extends ModuleViewed {
      * @param [Array => Mixed] $opts
      * @return [PHPObj => Mixed]
      */
-    protected function parseFeedback($opts){
+    public function parseFeedback($opts){
         $parsedQuestions = array();
         $scoreMax = 0;
         $scoreRaw = 0;
@@ -49,8 +50,14 @@ class FeedbackSubmitted extends ModuleViewed {
                 }
             }
 
+            if (is_null($currentResponse)) {
+                // Perhaps a label or the learner did not answer this question - don't add to the array.
+                break;
+            }
+
             // Parse the current question
             $parsedQuestion = (object)[
+                'question' => $question,
                 'options' => $this->parseQuestionPresentation($question->presentation, $question->typ),
                 'score' => (object) [
                     'max' => 0,
@@ -59,7 +66,6 @@ class FeedbackSubmitted extends ModuleViewed {
                 'response' => null
             ];
 
-            // Sometimes $currentResponse->value contains the actual response, so default to that. 
             $parsedQuestion->response = $currentResponse->value;
 
             // Add scores and response
@@ -70,8 +76,6 @@ class FeedbackSubmitted extends ModuleViewed {
 
                 // Find the option the learner selected
                 if ($optionIndex == $currentResponse->value){
-                    // Sometimes $currentResponse->value contains the id of an option, so look up the description
-                    $parsedQuestion->response = $option->description;
                     if (isset($option->value)) {
                         $parsedQuestion->score->raw = $option->value;
                     }
