@@ -89,6 +89,10 @@ class FeedbackSubmitted extends ModuleViewed {
                 $parsedQuestion->score->max = null;
                 $parsedQuestion->score->raw = null;
             }
+            else {
+                $parsedQuestion->score->min = 0;
+                $parsedQuestion->score->scaled = $parsedQuestion->score->raw / $parsedQuestion->score->max;
+            }
 
             array_push(
                 $parsedQuestions, 

@@ -47,14 +47,14 @@ class FeedbackQuestionSubmitted extends FeedbackSubmitted {
             'question_name' => $questionAttempt->question->name ?: 'A Moodle feedback question',
             'question_description' => $questionAttempt->question->name ?: 'A Moodle feedback question',
             'question_url' => $questionAttempt->question->url,
-            'attempt_score_scaled' => $questionAttempt->score->scaled, 
+            'attempt_score_scaled' => $questionAttempt->score->scaled,
             'attempt_score_raw' => $questionAttempt->score->raw, 
             'attempt_score_min' => $questionAttempt->score->min, 
             'attempt_score_max' => $questionAttempt->score->max,
             'attempt_response' => $questionAttempt->response,
-            'attempt_success': null,
-            'attempt_completed': true,
-            'interaction_correct_responses': null,
+            'attempt_success' => null,
+            'attempt_completed' => true,
+            'interaction_correct_responses' => null,
         ];
 
         switch ($questionAttempt->question->typ) {
@@ -89,18 +89,6 @@ class FeedbackQuestionSubmitted extends FeedbackSubmitted {
                 
                 break;
         }
-
-
-
-        /*TODO: interaction
-        "interaction_type": "choice",
-        "interaction_choices": {
-            "moodle_quiz_question_answer_8": "option 1",
-            "moodle_quiz_question_answer_9": "option 2",
-            "moodle_quiz_question_answer_10": "option 3 (incorrect)"
-        },
-        "interaction_correct_responses": ["moodle_quiz_question_answer_8[,]moodle_quiz_question_answer_9"]
-        */
 
         return array_merge($template, $translatorevent);
     }
