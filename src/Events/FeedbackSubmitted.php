@@ -35,7 +35,7 @@ class FeedbackSubmitted extends ModuleViewed {
      * @return [PHPObj => Mixed]
      */
     public function parseFeedback($opts){
-        $parsedQuestions = array();
+        $parsedQuestions = [];
         $scoreMax = 0;
         $scoreRaw = 0;
 
@@ -130,7 +130,7 @@ class FeedbackSubmitted extends ModuleViewed {
 
         // Text areas don't have options or scores
         if ($type == 'textarea') {
-            return array();
+            return [];
         }
 
         // Strip out the junk.
@@ -139,9 +139,9 @@ class FeedbackSubmitted extends ModuleViewed {
         $presentation = strip_tags($presentation);
 
         $options = explode('|', $presentation);
-        $return = array((object)[
+        $return = [(object)[
             'description' => 'Not selected'
-        ]);
+        ]];
 
         foreach ($options as $index => $option) {
             switch ($type) {
@@ -159,7 +159,7 @@ class FeedbackSubmitted extends ModuleViewed {
                     break;
                 default:
                     // Unsupported type. 
-                    return array();
+                    return []];
                     break;
             }
         }
