@@ -59,12 +59,12 @@ class FeedbackSubmittedTest extends ModuleViewedTest {
     protected function assertOutput($input, $output) {
         parent::assertOutput($input, $output);
         $this->assertAttempt($input['attempt'], $output);
-        $this->assertEquals(0, $output['attempt_score_min')];
-        $this->assertEquals(1, $output['attempt_score_max')];
-        $this->assertEquals(1, $output['attempt_score_scaled')];
-        $this->assertEquals(true, $output['attempt_success')];
-        $this->assertEquals(true, $output['attempt_completed')];
-        $this->assertEquals(null, $output['attempt_duration')];
+        $this->assertEquals(0, $output['attempt_score_min']);
+        $this->assertEquals(1, $output['attempt_score_max']);
+        $this->assertEquals(1, $output['attempt_score_scaled']);
+        $this->assertEquals(true, $output['attempt_success']);
+        $this->assertEquals(true, $output['attempt_completed']);
+        $this->assertEquals(null, $output['attempt_duration']);
     }
 
     protected function assertAttempt($input, $output) {
