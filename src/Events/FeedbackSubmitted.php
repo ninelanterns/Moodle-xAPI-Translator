@@ -159,7 +159,7 @@ class FeedbackSubmitted extends ModuleViewed {
                     break;
                 default:
                     // Unsupported type. 
-                    return []];
+                    return [];
                     break;
             }
         }
