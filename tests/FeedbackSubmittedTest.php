@@ -23,7 +23,7 @@ class FeedbackSubmittedTest extends ModuleViewedTest {
         return (object) [
             'url' => 'http://www.example.com/attempt_url',
             'name' => 'Test attempt_name',
-            'type' => 'moodle_attempt',
+            'type' => 'moodle_feedback_attempt',
             'timemodified' => 1433946701,
             'responses' => (object) [
                 "2" => (object) [
@@ -51,7 +51,7 @@ class FeedbackSubmittedTest extends ModuleViewedTest {
                 "dependvalue" => "",
                 "options" => "",
                 "template" => false,
-                "url" => "http:\/\/localhost:8888\/moodle\/mod\/feedback\/edit_item.php?id=1"
+                "url" => "http://www.example.com/question_url"
             ]
         ];
     }
@@ -62,13 +62,13 @@ class FeedbackSubmittedTest extends ModuleViewedTest {
         $this->assertEquals(0, $output['attempt_score_min']);
         $this->assertEquals(1, $output['attempt_score_max']);
         $this->assertEquals(1, $output['attempt_score_scaled']);
-        $this->assertEquals(true, $output['attempt_success']);
+        $this->assertEquals(null, $output['attempt_success']);
         $this->assertEquals(true, $output['attempt_completed']);
         $this->assertEquals(null, $output['attempt_duration']);
     }
 
     protected function assertAttempt($input, $output) {
-        $ext_key = 'http://lrs.learninglocker.net/define/extensions/moodle_attempt';
+        $ext_key = 'http://lrs.learninglocker.net/define/extensions/moodle_feedback_attempt';
         $this->assertEquals($input->url, $output['attempt_url']);
         $this->assertEquals($input->name, $output['attempt_name']);
         $this->assertEquals(static::$xapi_type.$input->type, $output['attempt_type']);
