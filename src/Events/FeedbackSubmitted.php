@@ -11,8 +11,6 @@ class FeedbackSubmitted extends ModuleViewed {
 
         $feedback = $this->parseFeedback($opts);
 
-        //$parsedQuestions = [{"options":[{"description":"Not selected"},{"description":"agree "},{"description":"disagree "},{"description":"whateverz"}],"score":{"max":null,"raw":null},"response":"2"},{"options":[{"description":"Not selected"},{"description":"foo","value":"4"},{"description":"bar","value":"5"}],"score":{"max":"5","raw":0},"response":"0"},{"options":[],"score":{"max":null,"raw":null},"response":null}]}]
-
         return [array_merge(parent::read($opts)[0], [
             'recipe' => 'attempt_completed',
             'attempt_url' => $opts['attempt']->url,

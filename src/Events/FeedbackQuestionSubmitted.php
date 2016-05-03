@@ -35,9 +35,6 @@ class FeedbackQuestionSubmitted extends FeedbackSubmitted {
      */
     protected function questionStatement($template, $questionAttempt) {
 
-        // For questions, only include data relevant to the current question in the attempt extension. 
-        $template['attempt_ext']->questions = [$questionAttempt];
-
         $translatorevent = [
             'recipe' => 'attempt_question_completed',
             'question_attempt_ext' => $questionAttempt,
@@ -55,6 +52,7 @@ class FeedbackQuestionSubmitted extends FeedbackSubmitted {
             'attempt_success' => null,
             'attempt_completed' => true,
             'interaction_correct_responses' => null,
+            'attempt_ext' => null // For questions the attempt extension is not used, so there's no need to pass that bulk of data
         ];
 
         switch ($questionAttempt->question->typ) {
