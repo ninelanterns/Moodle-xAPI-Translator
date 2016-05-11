@@ -14,10 +14,11 @@ class Event extends PhpObj {
         $version = trim(file_get_contents(__DIR__.'/../../VERSION'));
         $opts['info']->{'https://github.com/LearningLocker/Moodle-xAPI-Translator'} = $version;
         $app_name = $opts['app']->fullname ?: 'A Moodle site';
+
         return [[
             'user_id' => $opts['user']->id,
             'user_url' => $opts['user']->url,
-            'user_name' => $opts['user']->username,
+            'user_name' => $opts['user']->fullname,
             'context_lang' => $opts['course']->lang,
             'context_platform' => 'Moodle',
             'context_ext' => $opts['event'],

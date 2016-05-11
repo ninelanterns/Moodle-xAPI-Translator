@@ -2,7 +2,7 @@
     {
         "user_id": "2",
         "user_url": "http:\/\/localhost\/moodle",
-        "user_name": "testuser",
+        "user_name": "Test User",
         "context_lang": null,
         "context_platform": "Moodle",
         "context_info": {
