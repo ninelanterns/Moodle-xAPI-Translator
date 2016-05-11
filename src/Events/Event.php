@@ -1,4 +1,4 @@
-<?php namespace MXTranslator\Events;
+username<?php namespace MXTranslator\Events;
 use \MXTranslator\Repository as Repository;
 use \stdClass as PhpObj;
 

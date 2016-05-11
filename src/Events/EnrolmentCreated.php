@@ -12,10 +12,10 @@ class EnrolmentCreated extends CourseViewed {
             'recipe' => 'enrolment_created',
             'user_id' => $opts['relateduser']->id,
             'user_url' => $opts['relateduser']->url,
-            'user_name' => $opts['relateduser']->username,
+            'user_name' => $opts['relateduser']->fullname,
             'instructor_id' => $opts['user']->id,
             'instructor_url' => $opts['user']->url,
-            'instructor_name' => $opts['user']->username,
+            'instructor_name' => $opts['user']->fullname,
         ])];
     }
 }

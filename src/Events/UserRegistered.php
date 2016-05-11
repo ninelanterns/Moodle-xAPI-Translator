@@ -12,7 +12,7 @@ class UserRegistered extends Event {
             'recipe' => 'user_registered',
             'user_id' => $opts['relateduser']->id,
             'user_url' => $opts['relateduser']->url,
-            'user_name' => $opts['relateduser']->username,
+            'user_name' => $opts['relateduser']->fullname,
         ])];
     }
 }
