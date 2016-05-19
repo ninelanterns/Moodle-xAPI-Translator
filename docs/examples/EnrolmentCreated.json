@@ -2,7 +2,7 @@
     {
         "user_id": "2",
         "user_url": "http:\/\/localhost\/moodle",
-        "user_name": "testuser",
+        "user_name": "Test User",
         "instructor_id": "2",
         "instructor_url": "http:\/\/localhost\/moodle",
         "instructor_name": "testuser",

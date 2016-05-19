@@ -50,7 +50,7 @@ abstract class EventTest extends PhpUnitTestCase {
         return (object) [
             'id' => 1,
             'url' => 'http://www.example.com/user_url',
-            'username' => 'Test user_name',
+            'fullname' => 'Test user_name'
         ];
     }
 
@@ -110,7 +110,7 @@ abstract class EventTest extends PhpUnitTestCase {
     protected function assertUser($input, $output, $type) {
         $this->assertEquals($input->id, $output[$type.'_id']);
         $this->assertEquals($input->url, $output[$type.'_url']);
-        $this->assertEquals($input->username, $output[$type.'_name']);
+        $this->assertEquals($input->fullname, $output[$type.'_name']);
     }
 
     protected function assertCourse($input, $output, $type) {

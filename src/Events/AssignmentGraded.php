@@ -35,7 +35,7 @@ class AssignmentGraded extends ModuleViewed {
             'recipe' => 'assignment_graded',
             'graded_user_id' => $opts['graded_user']->id,
             'graded_user_url' => $opts['graded_user']->url,
-            'graded_user_name' => $opts['graded_user']->username,
+            'graded_user_name' => $opts['graded_user']->fullname,
             'grade_score_raw' => $scoreRaw,
             'grade_score_min' => $scoreMin,
             'grade_score_max' => $scoreMax,
