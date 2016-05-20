@@ -19,7 +19,8 @@ class Event extends PhpObj {
             'user_id' => $opts['user']->id,
             'user_url' => $opts['user']->url,
             'user_name' => $opts['user']->fullname,
-            'context_lang' => $opts['course']->lang,
+            'context_lang' => is_null($opts['course']->lang)
+                || $opts['course']->lang == '' ? "en" : $opts['course']->lang,
             'context_platform' => 'Moodle',
             'context_ext' => $opts['event'],
             'context_ext_key' => 'http://lrs.learninglocker.net/define/extensions/moodle_logstore_standard_log',
