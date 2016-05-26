@@ -42,7 +42,7 @@ class Controller extends PhpObj {
         '\mod_feedback\event\response_submitted' => ['FeedbackSubmitted','FeedbackQuestionSubmitted'],
         '\mod_facetoface\event\signup_success' => 'FacetofaceEnrol',
         '\mod_facetoface\event\cancel_booking' => 'FacetofaceUnenrol',
-        //'\mod_facetoface\event\take_attendance' => 'FacetofaceAttend'
+        '\mod_facetoface\event\take_attendance' => 'FacetofaceAttend'
     ];
 
     /**
@@ -67,7 +67,9 @@ class Controller extends PhpObj {
                         foreach ((new $event())->read($opts) as $index => $result) {
                              array_push($results, $result);
                          }
-                    } catch (UnnecessaryEvent $ex) {}
+                    } catch (UnnecessaryEvent $ex) {
+                        error_log('[Error!] '.json_encode($ex)."\r\n", 3, __DIR__.'/error_log.txt');
+                    }
                 }
             }
         }

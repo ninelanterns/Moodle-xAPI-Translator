@@ -5,7 +5,7 @@ class FacetofaceEnrol extends ModuleViewed {
      * Reads data for an event.
      * @param [String => Mixed] $opts
      * @return [String => Mixed]
-     * @override AttemtStarted
+     * @override ModuleViewed
      */
     public function read(array $opts) {
 
