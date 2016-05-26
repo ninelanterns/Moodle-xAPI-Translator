@@ -40,6 +40,7 @@ class Controller extends PhpObj {
         '\core\event\user_created' => 'UserRegistered',
         '\core\event\user_enrolment_created' => 'EnrolmentCreated',
         '\mod_scorm\event\sco_launched' => 'ScormLaunched',
+        '\mod_feedback\event\response_submitted' => ['FeedbackSubmitted','FeedbackQuestionSubmitted'],
     ];
 
     /**
