@@ -32,8 +32,8 @@ class FacetofaceEnrolTest extends ModuleViewedTest {
             "timecreated" => "1464179438",
             "timemodified" => "0",
             "type" => "facetoface_sessions",
-            "dates": [
-                "1": (object) [
+            "dates" => [
+                "1" => (object) [
                     "id" => "1",
                     "sessionid" => "1",
                     "timestart" => "1464179400",
