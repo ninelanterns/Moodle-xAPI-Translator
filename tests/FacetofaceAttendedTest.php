@@ -30,9 +30,9 @@ class FacetofaceAttendTest extends FacetofaceEnrolTest {
             "discountcode" => null,
             "notificationtype" => "3",
             "statuses" => [
-                "1" => constructStatus("1"),
-                "2" => constructStatus("2"),
-                "3" => constructFinalStatus("3"),
+                "1" => $this->constructStatus("1"),
+                "2" => $this->constructStatus("2"),
+                "3" => $this->constructFinalStatus("3"),
             ],
             "attendee" => $this->constructUser()
         ];
