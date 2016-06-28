@@ -50,7 +50,7 @@ class FacetofaceAttendTest extends FacetofaceEnrolTest {
             "note" => "",
             "advice" => null,
             "createdby" => "1",
-            "timecreated" => "146711713".$id
+            "timecreated" => "143394660".$id // Earlier than the final status
         ];
     }
 
@@ -59,12 +59,12 @@ class FacetofaceAttendTest extends FacetofaceEnrolTest {
             "id" => $id,
             "signupid" => "4",
             "statuscode" => "100",
-            "superceded" => "1",
+            "superceded" => "0",
             "grade" => "100.00000",
             "note" => "",
             "advice" => null,
             "createdby" => "1",
-            "timecreated" => "146711713".$id
+            "timecreated" => "1433946701" // Must be the same as timecreated in EventTest.php
         ];
     }
 
