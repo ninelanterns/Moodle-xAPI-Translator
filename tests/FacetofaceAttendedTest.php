@@ -68,6 +68,13 @@ class FacetofaceAttendTest extends FacetofaceEnrolTest {
         ];
     }
 
+    protected function assertOutputs($input, $output) {
+        //output is an associative array
+        $this->assertEquals(0, count(array_filter(array_keys($output), 'is_string')));
+        //length of output is 3.
+        $this->assertEquals(2 , count($output));
+    }
+
     protected function assertOutput($input, $output) {
         parent::assertOutput($input, $output);
         $this->assertEquals($input['signups']['1']->attendee->id, $output['attendee_id']);
