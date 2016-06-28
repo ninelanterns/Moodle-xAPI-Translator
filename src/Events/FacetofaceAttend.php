@@ -33,11 +33,11 @@ class FacetofaceAttend extends FacetofaceEnrol {
                     $currentStatus = $status;
                     continue;
                 }
-                if ($status->timecreated < $opts['event']['timecreated'] && $status->statuscodestatus == $statuscodes->partial) {
+                if ($status->timecreated < $opts['event']['timecreated'] && $status->statuscode == $statuscodes->partial) {
                     $previousPartialAttendance = true;
                     continue;
                 }
-                if ($status->timecreated < $opts['event']['timecreated'] && $status->statuscodestatus == $statuscodes->attended) {
+                if ($status->timecreated < $opts['event']['timecreated'] && $status->statuscode == $statuscodes->attended) {
                     $previousAttendance = true;
                     continue;
                 }
