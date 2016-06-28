@@ -2,7 +2,7 @@
 use \MXTranslator\Events\FacetofaceAttend as Event;
 
 class FacetofaceAttendTest extends ModuleViewedTest {
-    protected static $recipe_name = 'module_viewed';
+    protected static $recipe_name = 'training_session_attend';
 
     /**
      * Sets up the tests.
