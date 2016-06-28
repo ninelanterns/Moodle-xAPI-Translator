@@ -80,7 +80,14 @@ class FacetofaceAttendTest extends FacetofaceEnrolTest {
         $this->assertEquals($input['signups']['1']->attendee->id, $output['attendee_id']);
         $this->assertEquals($input['signups']['1']->attendee->url, $output['attendee_url']);
         $this->assertEquals($input['signups']['1']->attendee->fullname, $output['attendee_name']);
-        $this->assertEquals("PT".$input['session']->duration."S", $output['attempt_duration']);
+        
+        $sessionDuration = 0;
+        foreach ($input['session']->dates as $index => $date) {
+            $sessionDuration -= $date->timestart;
+            $sessionDuration += $date->timefinish;
+        }
+
+        $this->assertEquals("PT".$sessionDuration."S", $output['attempt_duration']);
         $this->assertEquals(true, $output['attempt_completion']);
     }
 }

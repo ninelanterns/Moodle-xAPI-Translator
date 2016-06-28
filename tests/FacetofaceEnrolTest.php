@@ -26,7 +26,7 @@ class FacetofaceEnrolTest extends ModuleViewedTest {
             "allowoverbook" => "0",
             "details" => "",
             "datetimeknown" => "0",
-            "duration" => "123456",
+            "duration" => "0",
             "normalcost" => "0",
             "discountcost" => "0",
             "timecreated" => "1464179438",
@@ -36,7 +36,7 @@ class FacetofaceEnrolTest extends ModuleViewedTest {
                 "1" => (object) [
                     "id" => "1",
                     "sessionid" => "1",
-                    "timestart" => "1464179400",
+                    "timestart" => "1464176400",
                     "timefinish" => "1464179400"
                 ]
             ],
