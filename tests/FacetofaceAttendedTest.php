@@ -42,13 +42,13 @@ class FacetofaceAttendTest extends FacetofaceEnrolTest {
 
     private function constructStatus($id) {
         return (object) [
-            "id": $id,
+            "id" => $id,
             "signupid" => "4",
             "statuscode" => "90",
             "superceded" => "1",
             "grade" => "50.00000",
             "note" => "",
-            "advice": null,
+            "advice" => null,
             "createdby" => "1",
             "timecreated" => "146711713".$id
         ];
@@ -56,13 +56,13 @@ class FacetofaceAttendTest extends FacetofaceEnrolTest {
 
     private function constructFinalStatus($id) {
         return (object) [
-            "id": $id,
+            "id" => $id,
             "signupid" => "4",
             "statuscode" => "100",
             "superceded" => "1",
             "grade" => "100.00000",
             "note" => "",
-            "advice": null,
+            "advice" => null,
             "createdby" => "1",
             "timecreated" => "146711713".$id
         ];
