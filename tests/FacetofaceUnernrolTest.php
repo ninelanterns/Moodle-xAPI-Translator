@@ -1,7 +1,7 @@
 <?php namespace MXTranslator\Tests;
 use \MXTranslator\Events\FacetofaceUnenrol as Event;
 
-class FacetofaceUnenrolTest extends ModuleViewedTest {
+class FacetofaceUnenrolTest extends FacetofaceEnrolTest {
     protected static $recipe_name = 'training_session_unenrol';
 
     /**
