@@ -39,8 +39,8 @@ class FacetofaceEnrolTest extends ModuleViewedTest {
                     "timestart" => "1464179400",
                     "timefinish" => "1464179400"
                 ]
-            ]
-            'url' => 'http://www.example.com/session_url',
+            ],
+            'url' => 'http://www.example.com/session_url'
         ];
     }
 
