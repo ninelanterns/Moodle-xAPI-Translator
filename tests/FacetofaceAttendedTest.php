@@ -24,11 +24,11 @@ class FacetofaceAttendTest extends FacetofaceEnrolTest {
     private function constructSignup($id) {
         $signups =  (object) [  
             "id": $id,
-            "sessionid": "1",
-            "userid": "1",
-            "mailedreminder": "0",
+            "sessionid" => "1",
+            "userid" => "1",
+            "mailedreminder" => "0",
             "discountcode": null,
-            "notificationtype": "3",
+            "notificationtype" => "3",
             "statuses" => [
                 "1" => constructStatus("1"),
                 "2" => constructStatus("2"),
@@ -43,28 +43,28 @@ class FacetofaceAttendTest extends FacetofaceEnrolTest {
     private function constructStatus($id) {
         return (object) [
             "id": $id,
-            "signupid": "4",
-            "statuscode": "90",
-            "superceded": "1",
-            "grade": "50.00000",
-            "note": "",
+            "signupid" => "4",
+            "statuscode" => "90",
+            "superceded" => "1",
+            "grade" => "50.00000",
+            "note" => "",
             "advice": null,
-            "createdby": "1",
-            "timecreated": "146711713".$id
+            "createdby" => "1",
+            "timecreated" => "146711713".$id
         ];
     }
 
     private function constructFinalStatus($id) {
         return (object) [
             "id": $id,
-            "signupid": "4",
-            "statuscode": "100",
-            "superceded": "1",
-            "grade": "100.00000",
-            "note": "",
+            "signupid" => "4",
+            "statuscode" => "100",
+            "superceded" => "1",
+            "grade" => "100.00000",
+            "note" => "",
             "advice": null,
-            "createdby": "1",
-            "timecreated": "146711713".$id
+            "createdby" => "1",
+            "timecreated" => "146711713".$id
         ];
     }
 
