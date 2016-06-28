@@ -23,11 +23,11 @@ class FacetofaceAttendTest extends FacetofaceEnrolTest {
 
     private function constructSignup($id) {
         $signups =  (object) [  
-            "id": $id,
+            "id" => $id,
             "sessionid" => "1",
             "userid" => "1",
             "mailedreminder" => "0",
-            "discountcode": null,
+            "discountcode" => null,
             "notificationtype" => "3",
             "statuses" => [
                 "1" => constructStatus("1"),
