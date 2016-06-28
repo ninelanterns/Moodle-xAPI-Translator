@@ -1,6 +1,6 @@
 <?php namespace MXTranslator\Events;
 
-class FacetofaceAttend extends ModuleViewed {
+class FacetofaceAttend extends FacetofaceEnrol {
     /**
      * Reads data for an event.
      * @param [String => Mixed] $opts

@@ -1,7 +1,7 @@
 <?php namespace MXTranslator\Tests;
 use \MXTranslator\Events\FacetofaceAttend as Event;
 
-class FacetofaceAttendTest extends ModuleViewedTest {
+class FacetofaceAttendTest extends FacetofaceEnrolTest {
     protected static $recipe_name = 'training_session_attend';
 
     /**
@@ -14,38 +14,11 @@ class FacetofaceAttendTest extends ModuleViewedTest {
 
     protected function constructInput() {
         return array_merge(parent::constructInput(), [
-            'session' => $this->constructSession(),
             'signups' => [
                 "1" => $this->constructSignup("1"),
                 "2" => $this->constructSignup("2")
             ]
         ]);
-    }
-
-    private function constructSession() {
-        return (object) [
-            "id" => "1",
-            "facetoface" => "1",
-            "capacity" => "10",
-            "allowoverbook" => "0",
-            "details" => "",
-            "datetimeknown" => "0",
-            "duration" => "123456",
-            "normalcost" => "0",
-            "discountcost" => "0",
-            "timecreated" => "1464179438",
-            "timemodified" => "0",
-            "type" => "facetoface_sessions",
-            "dates": [
-                "1": (object) [
-                    "id" => "1",
-                    "sessionid" => "1",
-                    "timestart" => "1464179400",
-                    "timefinish" => "1464179400"
-                ]
-            ]
-            'url' => 'http://www.example.com/signup_url',
-        ];
     }
 
     private function constructSignup($id) {

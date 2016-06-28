@@ -154,6 +154,10 @@
         "url": "http:\/\/localhost:8888\/moodle\/mod\/facetoface\/view.php?id=137"
     },
     "module_ext_key": "http:\/\/lrs.learninglocker.net\/define\/extensions\/moodle_module",
+    "session_url": "http:\/\/localhost:8888\/moodle\/mod\/facetoface\/signup.php?s=1",
+    "session_name": "Session 1 of test face to face",
+    "session_description": "Session 1 of test face to face",
+    "session_type": "http:\/\/activitystrea.ms\/schema\/1.0\/event",
     "attendee_id": "2",
     "attendee_url": "http:\/\/localhost:8888\/moodle",
     "attendee_name": "Andrew Downes",
