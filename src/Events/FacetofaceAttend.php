@@ -31,15 +31,12 @@ class FacetofaceAttend extends FacetofaceEnrol {
             foreach ($signup->statuses as $statusIndex => $status) {
                 if ($status->timecreated == $opts['event']['timecreated']) {
                     $currentStatus = $status;
-                    continue;
-                }
-                if ($status->timecreated < $opts['event']['timecreated'] && $status->statuscode == $statuscodes->partial) {
+                } else if ($status->timecreated < $opts['event']['timecreated'] 
+                    && $status->statuscode == $statuscodes->partial) {
                     $previousPartialAttendance = true;
-                    continue;
-                }
-                if ($status->timecreated < $opts['event']['timecreated'] && $status->statuscode == $statuscodes->attended) {
+                } else if ($status->timecreated < $opts['event']['timecreated'] 
+                    && $status->statuscode == $statuscodes->attended) {
                     $previousAttendance = true;
-                    continue;
                 }
             }
 
@@ -56,16 +53,14 @@ class FacetofaceAttend extends FacetofaceEnrol {
                 }
                 $duration = $sessionDuration;
                 $completion = true;
-            }
-            else if ($currentStatus->statuscode == $statuscodes->partial){
+            } else if ($currentStatus->statuscode == $statuscodes->partial){
                 if ($previousPartialAttendance == true){
                     // Partial attendance has already been recorded for this user and session.
                     continue;
                 }
                 $duration = $sessionDuration * $partialAttendanceDurationCredit;
                 $completion = false;
-            }
-            else {
+            } else {
                 continue;
             }
 

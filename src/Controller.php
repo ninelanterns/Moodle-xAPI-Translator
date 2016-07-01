@@ -67,9 +67,7 @@ class Controller extends PhpObj {
                         foreach ((new $event())->read($opts) as $index => $result) {
                              array_push($results, $result);
                          }
-                    } catch (UnnecessaryEvent $ex) {
-                        error_log('[Error!] '.json_encode($ex)."\r\n", 3, __DIR__.'/error_log.txt');
-                    }
+                    } catch (UnnecessaryEvent $ex) {}
                 }
             }
         }

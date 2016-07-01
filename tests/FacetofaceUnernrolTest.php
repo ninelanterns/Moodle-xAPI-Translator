@@ -11,13 +11,4 @@ class FacetofaceUnenrolTest extends FacetofaceEnrolTest {
     public function setup() {
         $this->event = new Event($this->repo);
     }
-
-    protected function constructInput() {
-        return array_merge(parent::constructInput(), [
-        ]);
-    }
-
-    protected function assertOutput($input, $output) {
-        parent::assertOutput($input, $output);
-    }
 }
