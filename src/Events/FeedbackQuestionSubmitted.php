@@ -84,7 +84,6 @@ class FeedbackQuestionSubmitted extends FeedbackSubmitted {
                 break;
             default:
                 // Unsupported type. 
-                
                 break;
         }
 
