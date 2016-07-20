@@ -12,6 +12,8 @@ class ScormStatusSubmitted extends ModuleViewed {
             'recipe' => 'scorm_scoreraw_submitted',
             'scorm_url' => $opts['module']->url,
             'scorm_name' => $opts['module']->name,
+            'sco_url' => $opts['scorm_scoes']->url,
+            'sco_name' => $opts['scorm_scoes']->name,
             'scorm_attempt' => $opts['cmi_data']['attemptid'],
             'attempt_status' => $opts['cmi_data']['cmivalue'],
         ])];

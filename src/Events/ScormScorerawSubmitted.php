@@ -13,7 +13,10 @@ class ScormScorerawSubmitted extends ModuleViewed {
             'scorm_url' => $opts['module']->url,
             'scorm_name' => $opts['module']->name,
             'scorm_attempt' => $opts['cmi_data']['attemptid'],
-            'attempt_score' => $opts['cmi_data']['cmivalue'],
+            'scorm_score_raw' => $opts['cmi_data']['cmivalue'],
+            'scorm_score_min' => $opts['scorm_scoes_track']['scoremin'],
+            'scorm_score_max' => $opts['scorm_scoes_track']['scoremax'],
+            'scorm_status' => $opts['scorm_scoes_track']['status'],
         ])];
     }
 }
