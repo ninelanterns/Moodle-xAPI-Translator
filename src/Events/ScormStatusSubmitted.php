@@ -9,7 +9,7 @@ class ScormStatusSubmitted extends ModuleViewed {
      */
     public function read(array $opts) {
         return [array_merge(parent::read($opts)[0], [
-            'recipe' => 'scorm_scoreraw_submitted',
+            'recipe' => 'scorm_status_submitted',
             'scorm_url' => $opts['module']->url,
             'scorm_name' => $opts['module']->name,
             'scorm_attempt' => $opts['cmi_data']['attemptid'],
