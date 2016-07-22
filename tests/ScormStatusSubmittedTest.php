@@ -23,11 +23,7 @@ class ScormStatusSubmittedTest extends ModuleViewedTest {
                 'cmielement' => 'cmi.core.lesson_status',
                 'attemptid' => 2,
             ],
-            'scorm_scoes' => [
-                'id' => 1,
-                'scorm' => 1,
-                'scormtype' => 'sco',
-            ]
+            'scorm_scoes' => $this->constructScormScoes()
         ]);
     }
 
