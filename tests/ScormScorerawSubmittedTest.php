@@ -20,22 +20,30 @@ class ScormScorerawSubmittedTest extends ModuleViewedTest {
                 'status' => 'status',
             ],
             'cmi_data' => [
-                'cmivalue' => 0,
+                'cmivalue' => 100,
                 'cmielement' => 'cmi.core.score.raw',
-                'attemptid' => 2,
+                'attemptid' => 1,
             ],
-            'scorm_scoes' => [
-                'id' => 1,
-                'scorm' => 1,
-                'scormtype' => 'sco',
-            ]
+            'scorm_scoes' => $this->constructScormScoes()
         ]);
     }
+
+      protected function constructScormScoes() {
+          return (object) [
+              'id' => 1,
+              'scorm' => 1,
+              'scormtype' => 'sco',
+              'title' => 'Sco title'
+          ];
+      }
 
     protected function assertOutput($input, $output) {
         parent::assertOutput($input, $output);
         $this->assertEquals($input['module']->name, $output['scorm_name']);
         $this->assertEquals($input['module']->url, $output['scorm_url']);
+        $this->assertEquals($input['module']->url, $output['scorm_scoes_url']);
+        $this->assertEquals($input['scorm_scoes']->title, $output['scorm_scoes_name']);
+        $this->assertEquals($input['scorm_scoes']->id, $output['scorm_scoes_id']);
         $this->assertEquals($input['scorm_scoes_track']['scoremin'], $output['scorm_score_min']);
         $this->assertEquals($input['scorm_scoes_track']['scoremax'], $output['scorm_score_max']);
         $this->assertEquals($input['scorm_scoes_track']['status'], $output['scorm_status']);

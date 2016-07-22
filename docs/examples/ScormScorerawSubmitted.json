@@ -57,10 +57,15 @@
     "module_ext_key": "http:\/\/lrs.learninglocker.net\/define\/extensions\/moodle_module",
     "scorm_url": "http:\/\/www.example.com\/module_url",
     "scorm_name": "Test module_name",
-    "scorm_attempt": 2,
-    "scorm_score_raw": 0,
+    "scorm_scoes_id": 1,
+    "scorm_scoes_type": "http:\/\/adlnet.gov\/expapi\/activities\/lesson",
+    "scorm_scoes_url": "url\/to\/sco.html",
+    "scorm_scoes_name": "Sco title",
+    "scorm_scoes_description": "Sco title",
+    "scorm_attempt": 1,
+    "scorm_score_raw": 100,
     "scorm_score_min": 0,
     "scorm_score_max": 100,
-    "scorm_score_scaled": 0,
+    "scorm_score_scaled": 1,
     "scorm_status": "status"
 }

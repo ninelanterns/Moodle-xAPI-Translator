@@ -57,6 +57,10 @@
     "module_ext_key": "http:\/\/lrs.learninglocker.net\/define\/extensions\/moodle_module",
     "scorm_url": "http:\/\/www.example.com\/module_url",
     "scorm_name": "Test module_name",
+    "scorm_scoes_type": "http:\/\/adlnet.gov\/expapi\/activities\/lesson",
+    "scorm_scoes_id": null,
+    "scorm_scoes_url": null,
+    "scorm_scoes_name": null,
     "scorm_attempt": 2,
     "scorm_status": "completed"
 }
