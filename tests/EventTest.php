@@ -93,6 +93,15 @@ abstract class EventTest extends PhpUnitTestCase {
         ];
     }
 
+    protected function constructScormScoes() {
+        return (object) [
+            'id' => 1,
+            'scorm' => 1,
+            'scormtype' => 'sco',
+            'title' => 'Sco title'
+        ];
+    }
+
     protected function assertOutputs($input, $output) {
         //output is an associative array
         $this->assertEquals(0, count(array_filter(array_keys($output), 'is_string')));

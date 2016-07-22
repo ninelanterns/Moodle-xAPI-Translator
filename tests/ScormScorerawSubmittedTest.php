@@ -28,15 +28,6 @@ class ScormScorerawSubmittedTest extends ModuleViewedTest {
         ]);
     }
 
-      protected function constructScormScoes() {
-          return (object) [
-              'id' => 1,
-              'scorm' => 1,
-              'scormtype' => 'sco',
-              'title' => 'Sco title'
-          ];
-      }
-
     protected function assertOutput($input, $output) {
         parent::assertOutput($input, $output);
         $this->assertEquals($input['module']->name, $output['scorm_name']);
