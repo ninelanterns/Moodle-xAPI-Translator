@@ -15,7 +15,7 @@ class FacetofaceEnrol extends ModuleViewed {
             'session_url' => $opts['session']->url,
             'session_name' => $sessionName,
             'session_description' => $sessionName,
-            'session_type' => 'http://activitystrea.ms/schema/1.0/event',
+            'session_type' => 'http://adlnet.gov/expapi/activities/meeting',
         ])];
     }
 }
