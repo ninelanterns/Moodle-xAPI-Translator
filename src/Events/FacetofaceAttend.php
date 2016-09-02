@@ -48,7 +48,8 @@ class FacetofaceAttend extends FacetofaceEnrol {
         $previousAttendance = false;
         $previousPartialAttendance = false;
         foreach ($signup->statuses as $status) {
-            if ($status->timecreated == $opts['event']['timecreated']) {
+            /***TAKE THIS OUT!!***/
+            if ($status->timecreated == $opts['event']['timecreated'] || true) {
                 $currentStatus = $status;
             } else if ($status->timecreated < $opts['event']['timecreated'] 
                 && $status->statuscode == $this->statuscodes->partial) {
@@ -63,8 +64,8 @@ class FacetofaceAttend extends FacetofaceEnrol {
             // There is no status with a timestamp matching the event.
             return null;
         }
-
-        $duration = null;
+/***TAKE THIS OUT!!***/
+        /*$duration = null;
         $completion = null;
         if ($currentStatus->statuscode == $this->statuscodes->attended){
             if ($previousAttendance == true){
@@ -83,15 +84,19 @@ class FacetofaceAttend extends FacetofaceEnrol {
         } else {
             // This user did not attend this session.
             return null;
-        }
-
+        }*/
+        $duration = $this->sessionDuration;
+        $completion = true;
         return [
             'recipe' => 'training_session_attend',
             'attendee_id' => $signup->attendee->id,
             'attendee_url' => $signup->attendee->url,
             'attendee_name' => $signup->attendee->fullname,
             'attempt_duration' => "PT".(string) $duration."S",
-            'attempt_completion' => $completion
+            'attempt_completion' => $completion,
+            'relateduser_id' => $opts['relateduser']->id,
+            'relateduser_url' => $opts['relateduser']->url,
+            'relateduser_name' => $opts['relateduser']->fullname,
         ];
     }
 }

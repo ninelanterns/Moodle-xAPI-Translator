@@ -46,6 +46,7 @@ class Controller extends PhpObj {
         '\mod_facetoface\event\take_attendance' => 'FacetofaceAttend',
         '\mod_facetoface\event\session_signup' => 'FacetofaceEnrol',
         '\mod_facetoface\event\booking_cancelled' => 'FacetofaceUnenrol',
+        '\mod_facetoface\event\attendance_taken' => 'FacetofaceAttend',
     ];
 
     /**
@@ -60,6 +61,7 @@ class Controller extends PhpObj {
      */
     public function createEvents(array $events) {
         $results = [];
+        
         foreach ($events as $index => $opts) {
             $route = isset($opts['event']['eventname']) ? $opts['event']['eventname'] : '';
             if (isset(static::$routes[$route])) {
