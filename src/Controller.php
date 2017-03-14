@@ -31,7 +31,7 @@ class Controller extends PhpObj {
         '\mod_facetoface\event\course_module_viewed' => 'ModuleViewed',
         '\mod_quiz\event\attempt_abandoned' => 'AttemptAbandoned',
         '\mod_quiz\event\attempt_preview_started' => 'AttemptStarted',
-        '\mod_quiz\event\attempt_reviewed' => ['AttemptReviewed', 'QuestionSubmitted'],
+        /*'\mod_quiz\event\attempt_reviewed' => ['AttemptReviewed', 'QuestionSubmitted'],*/
         '\mod_quiz\event\attempt_viewed' => 'ModuleViewed',
         '\core\event\user_loggedin' => 'UserLoggedin',
         '\core\event\user_loggedout' => 'UserLoggedout',
