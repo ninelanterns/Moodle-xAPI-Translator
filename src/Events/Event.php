@@ -37,7 +37,10 @@ class Event extends PhpObj {
             'source_description' => 'Moodle is a open source learning platform designed to provide educators,'
                 .' administrators and learners with a single robust, secure and integrated system'
                 .' to create personalised learning environments.',
-            'source_type' => 'http://id.tincanapi.com/activitytype/source'
+            'source_type' => 'http://id.tincanapi.com/activitytype/source',
+            'relateduser_id' => $opts['relateduser']->id,
+            'relateduser_url' => $opts['relateduser']->url,
+            'relateduser_name' => $opts['relateduser']->fullname
         ]];
     }
 }
