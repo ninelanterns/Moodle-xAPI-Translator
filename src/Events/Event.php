@@ -14,6 +14,16 @@ class Event extends PhpObj {
         $version = trim(file_get_contents(__DIR__.'/../../VERSION'));
         $opts['info']->{'https://github.com/LearningLocker/Moodle-xAPI-Translator'} = $version;
         $app_name = $opts['app']->fullname ?: 'A Moodle site';
+        
+        if ($opts['relateduser']) {
+            $relateduser_id = $opts['relateduser']->id;
+            $relateduser_url = $opts['relateduser']->url;
+            $relateduser_name = $opts['relateduser']->fullname;
+        } else {
+            $relateduser_id = '';
+            $relateduser_url = '';
+            $relateduser_name = '';
+        }
 
         return [[
             'user_id' => $opts['user']->id,
@@ -38,9 +48,9 @@ class Event extends PhpObj {
                 .' administrators and learners with a single robust, secure and integrated system'
                 .' to create personalised learning environments.',
             'source_type' => 'http://id.tincanapi.com/activitytype/source',
-            'relateduser_id' => $opts['relateduser']->id,
-            'relateduser_url' => $opts['relateduser']->url,
-            'relateduser_name' => $opts['relateduser']->fullname
+            'relateduser_id' => $relateduser_id,
+            'relateduser_url' => $relateduser_url,
+            'relateduser_name' => $relateduser_name
         ]];
     }
 }
