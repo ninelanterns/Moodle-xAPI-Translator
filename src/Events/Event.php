@@ -15,7 +15,7 @@ class Event extends PhpObj {
         $opts['info']->{'https://github.com/LearningLocker/Moodle-xAPI-Translator'} = $version;
         $app_name = $opts['app']->fullname ?: 'A Moodle site';
         
-        if ($opts['relateduser']) {
+        if (!empty($opts['relateduser'])) {
             $relateduser_id = $opts['relateduser']->id;
             $relateduser_url = $opts['relateduser']->url;
             $relateduser_name = $opts['relateduser']->fullname;
